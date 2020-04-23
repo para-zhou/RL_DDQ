@@ -1,17 +1,18 @@
 """
 Created on May 22, 2016
 
-This should be a simple minimalist run file. It's only responsibility should be to parse the arguments (which agent, user simulator to use) and launch a dialog simulation.
+This should be a simple minimalist run file. It's only responsibility should be to parse the arguments 
+(which agent, user simulator to use) and launch a dialog simulation.
 
 @author: xiul, t-zalipt, baolin
 """
 
 import argparse, json, copy, os
-import cPickle as pickle
-import cPickle
+import pickle
 
 from deep_dialog.dialog_system import DialogManager, text_to_dict
-from deep_dialog.agents import AgentCmd, InformAgent, RequestAllAgent, RandomAgent, EchoAgent, RequestBasicsAgent, AgentDQN
+from deep_dialog.agents import (AgentCmd, InformAgent, RequestAllAgent, RandomAgent, 
+                                EchoAgent, RequestBasicsAgent, AgentDQN)
 from deep_dialog.usersims import RuleSimulator, ModelBasedSimulator
 
 from deep_dialog import dialog_config
@@ -20,14 +21,16 @@ from deep_dialog.dialog_config import *
 from deep_dialog.nlu import nlu
 from deep_dialog.nlg import nlg
 
+from deep_dialog.data.win2unix import win2unix
+
 import numpy
 import random
+import torch
+
 
 seed = 5
 numpy.random.seed(seed)
 random.seed(seed)
-
-import torch
 
 """ 
 Launch a dialog simulation per the command line arguments
@@ -40,8 +43,8 @@ if __name__ == "__main__":
 
     parser.add_argument('--dict_path', dest='dict_path', type=str, default='./deep_dialog/data/dicts.v3.p',
                         help='path to the .json dictionary file')
-    parser.add_argument('--movie_kb_path', dest='movie_kb_path', type=str, default='./deep_dialog/data/movie_kb.1k.p',
-                        help='path to the movie kb .json file')
+    parser.add_argument('--movie_kb_path', dest='movie_kb_path', type=str, 
+                        default='./deep_dialog/data/movie_kb.1k.p', help='path to the movie kb .json file')
     parser.add_argument('--act_set', dest='act_set', type=str, default='./deep_dialog/data/dia_acts.txt',
                         help='path to dia act set; none for loading from labeled file')
     parser.add_argument('--slot_set', dest='slot_set', type=str, default='./deep_dialog/data/slot_set.txt',
@@ -90,13 +93,14 @@ if __name__ == "__main__":
                         help='run_mode: 0 for NL; 1 for dia_act')
 
     # RL agent parameters
-    parser.add_argument('--experience_replay_pool_size', dest='experience_replay_pool_size', type=int, default=5000,
-                        help='the size for experience replay')
+    parser.add_argument('--experience_replay_pool_size', dest='experience_replay_pool_size', 
+                        type=int, default=5000, help='the size for experience replay')
     parser.add_argument('--dqn_hidden_size', dest='dqn_hidden_size', type=int, default=60,
                         help='the hidden size for DQN')
     parser.add_argument('--batch_size', dest='batch_size', type=int, default=16, help='batch size')
     parser.add_argument('--gamma', dest='gamma', type=float, default=0.9, help='gamma for DQN')
-    parser.add_argument('--predict_mode', dest='predict_mode', type=bool, default=False, help='predict model for DQN')
+    parser.add_argument('--predict_mode', dest='predict_mode', type=bool, default=False,
+                        help='predict model for DQN')
     parser.add_argument('--simulation_epoch_size', dest='simulation_epoch_size', type=int, default=50,
                         help='the size of validation set')
     parser.add_argument('--warm_start', dest='warm_start', type=int, default=1,
@@ -127,13 +131,14 @@ if __name__ == "__main__":
     parser.add_argument('--boosted', dest='boosted', type=int, default=1, help='Boost the world model')
     parser.add_argument('--train_world_model', dest='train_world_model', type=int, default=1,
                         help='Whether train world model on the fly or not')
-    parser.add_argument('--torch_seed', dest='torch_seed', type=int, default=100, help='random seed for troch')
+    parser.add_argument('--torch_seed', dest='torch_seed', type=int, default=100,
+                        help='random seed for troch')
 
     args = parser.parse_args()
     params = vars(args)
 
-    print 'Dialog Parameters: '
-    print json.dumps(params, indent=2)
+    print('Dialog Parameters: ')
+    print(json.dumps(params, indent=2))
 
 max_turn = params['max_turn']
 num_episodes = params['episodes']
@@ -145,7 +150,10 @@ dict_path = params['dict_path']
 goal_file_path = params['goal_file_path']
 
 # load the user goals from .p file
-all_goal_set = pickle.load(open(goal_file_path, 'rb'))
+try:
+    all_goal_set = pickle.load(open(goal_file_path, 'rb'))
+except:
+    all_goal_set = pickle.load(open(win2unix(goal_file_path), 'rb'))
 
 # split goal set
 split_fold = params.get('split_fold', 5)
@@ -159,7 +167,10 @@ for u_goal_id, u_goal in enumerate(all_goal_set):
 # end split goal set
 
 movie_kb_path = params['movie_kb_path']
-movie_kb = pickle.load(open(movie_kb_path, 'rb'))
+try:
+    movie_kb = pickle.load(open(movie_kb_path, 'rb'))
+except:
+    movie_kb = pickle.load(open(win2unix(movie_kb_path), 'rb'), encoding='iso-8859-1')
 
 act_set = text_to_dict(params['act_set'])
 slot_set = text_to_dict(params['slot_set'])
@@ -167,7 +178,10 @@ slot_set = text_to_dict(params['slot_set'])
 ################################################################################
 # a movie dictionary for user simulator - slot:possible values
 ################################################################################
-movie_dictionary = pickle.load(open(dict_path, 'rb'))
+try:
+    movie_dictionary = pickle.load(open(dict_path, 'rb'), encoding='iso-8859-1')
+except:
+    movie_dictionary = pickle.load(open(win2unix(dict_path), 'rb'))
 
 dialog_config.run_mode = params['run_mode']
 dialog_config.auto_suggest = params['auto_suggest']
@@ -299,43 +313,37 @@ performance_records['ave_turns'] = {}
 performance_records['ave_reward'] = {}
 
 """ Save model """
-
-
 def save_model(path, agt, success_rate, agent, best_epoch, cur_epoch):
     filename = 'agt_%s_%s_%s_%.5f.pkl' % (agt, best_epoch, cur_epoch, success_rate)
     filepath = os.path.join(path, filename)
     try:
         agent.save(filepath)
-        print 'saved model in %s' % (filepath,)
-    except Exception, e:
-        print 'Error: Writing model fails: %s' % (filepath,)
-        print e
+        print('saved model in %s' % (filepath,))
+    except Exception as e:
+        print('Error: Writing model fails: %s' % (filepath,))
+        print(e)
 
 
 """ save performance numbers """
-
-
 def save_performance_records(path, agt, records):
     filename = 'agt_%s_performance_records.json' % (agt)
     filepath = os.path.join(path, filename)
     try:
         json.dump(records, open(filepath, "wb"))
-        print 'saved model in %s' % (filepath,)
-    except Exception, e:
-        print 'Error: Writing model fails: %s' % (filepath,)
-        print e
+        print('saved model in %s' % (filepath,))
+    except Exception as e:
+        print('Error: Writing model fails: %s' % (filepath,))
+        print(e)
 
 
 """ Run N simulation Dialogues """
-
-
 def simulation_epoch(simulation_epoch_size):
     successes = 0
     cumulative_reward = 0
     cumulative_turns = 0
 
     res = {}
-    for episode in xrange(simulation_epoch_size):
+    for episode in range(simulation_epoch_size):
         dialog_manager.initialize_episode(use_environment=True)
         episode_over = False
         while (not episode_over):
@@ -344,15 +352,15 @@ def simulation_epoch(simulation_epoch_size):
             if episode_over:
                 if reward > 0:
                     successes += 1
-                    print ("simulation episode %s: Success" % (episode))
+                    print("simulation episode %s: Success" % (episode))
                 else:
-                    print ("simulation episode %s: Fail" % (episode))
+                    print("simulation episode %s: Fail" % (episode))
                 cumulative_turns += dialog_manager.state_tracker.turn_count
 
     res['success_rate'] = float(successes) / simulation_epoch_size
     res['ave_reward'] = float(cumulative_reward) / simulation_epoch_size
     res['ave_turns'] = float(cumulative_turns) / simulation_epoch_size
-    print ("simulation success rate %s, ave reward %s, ave turns %s" % (
+    print("simulation success rate %s, ave reward %s, ave turns %s" % (
         res['success_rate'], res['ave_reward'], res['ave_turns']))
     return res
 
@@ -363,7 +371,7 @@ def simulation_epoch_for_training(simulation_epoch_size, grounded_for_model=Fals
     cumulative_turns = 0
 
     res = {}
-    for episode in xrange(simulation_epoch_size):
+    for episode in range(simulation_epoch_size):
 
         if episode % simulation_epoch_size == 0:
             use_environment = True
@@ -379,22 +387,20 @@ def simulation_epoch_for_training(simulation_epoch_size, grounded_for_model=Fals
             if episode_over:
                 if reward > 0:
                     successes += 1
-                    print ("simulation episode %s: Success" % (episode))
+                    print("simulation episode %s: Success" % (episode))
                 else:
-                    print ("simulation episode %s: Fail" % (episode))
+                    print("simulation episode %s: Fail" % (episode))
                 cumulative_turns += dialog_manager.state_tracker.turn_count
 
     res['success_rate'] = float(successes) / simulation_epoch_size
     res['ave_reward'] = float(cumulative_reward) / simulation_epoch_size
     res['ave_turns'] = float(cumulative_turns) / simulation_epoch_size
-    print ("simulation success rate %s, ave reward %s, ave turns %s" % (
+    print("simulation success rate %s, ave reward %s, ave turns %s" % (
         res['success_rate'], res['ave_reward'], res['ave_turns']))
     return res
 
 
 """ Warm_Start Simulation (by Rule Policy) """
-
-
 def warm_start_simulation():
     successes = 0
     cumulative_reward = 0
@@ -402,7 +408,7 @@ def warm_start_simulation():
 
     res = {}
     warm_start_run_epochs = 0
-    for episode in xrange(warm_start_epochs):
+    for episode in range(warm_start_epochs):
         dialog_manager.initialize_episode(use_environment=True)
         episode_over = False
         while (not episode_over):
@@ -411,9 +417,9 @@ def warm_start_simulation():
             if episode_over:
                 if reward > 0:
                     successes += 1
-                    print ("warm_start simulation episode %s: Success" % (episode))
+                    print("warm_start simulation episode %s: Success" % (episode))
                 else:
-                    print ("warm_start simulation episode %s: Fail" % (episode))
+                    print("warm_start simulation episode %s: Fail" % (episode))
                 cumulative_turns += dialog_manager.state_tracker.turn_count
 
         warm_start_run_epochs += 1
@@ -430,20 +436,20 @@ def warm_start_simulation():
     res['success_rate'] = float(successes) / warm_start_run_epochs
     res['ave_reward'] = float(cumulative_reward) / warm_start_run_epochs
     res['ave_turns'] = float(cumulative_turns) / warm_start_run_epochs
-    print ("Warm_Start %s epochs, success rate %s, ave reward %s, ave turns %s" % (
+    print("Warm_Start %s epochs, success rate %s, ave reward %s, ave turns %s" % (
         episode + 1, res['success_rate'], res['ave_reward'], res['ave_turns']))
-    print ("Current experience replay buffer size %s" % (len(agent.experience_replay_pool)))
+    print("Current experience replay buffer size %s" % (len(agent.experience_replay_pool)))
 
 
 def warm_start_simulation_preload():
 
-    agent.experience_replay_pool = cPickle.load(open('warm_up_experience_pool_seed3081_r5.pkl', 'rb'))
-    world_model.training_examples = cPickle.load(open('warm_up_experience_pool_seed3081_r5_user.pkl', 'rb'))
+    agent.experience_replay_pool = pickle.load(open('warm_up_experience_pool_seed3081_r5.pkl', 'rb'))
+    world_model.training_examples = pickle.load(open('warm_up_experience_pool_seed3081_r5_user.pkl', 'rb'))
     world_model.train(batch_size, 5)
 
     agent.warm_start = 2
 
-    print ("Current experience replay buffer size %s" % (len(agent.experience_replay_pool)))
+    print("Current experience replay buffer size %s" % (len(agent.experience_replay_pool)))
 
 
 def run_episodes(count, status):
@@ -455,13 +461,13 @@ def run_episodes(count, status):
     simulation_epoch_size = planning_steps + 1
 
     if agt == 9 and params['trained_model_path'] == None and warm_start == 1:
-        print ('warm_start starting ...')
+        print('warm_start starting ...')
         warm_start_simulation()
-        print ('warm_start finished, start RL training ...')
+        print('warm_start finished, start RL training ...')
 
-    for episode in xrange(count):
+    for episode in range(count):
 
-        print ("Episode: %s" % (episode))
+        print("Episode: %s" % (episode))
         agent.predict_mode = False
         dialog_manager.initialize_episode(True)
         episode_over = False
@@ -472,10 +478,10 @@ def run_episodes(count, status):
 
             if episode_over:
                 if reward > 0:
-                    print ("Successful Dialog!")
+                    print("Successful Dialog!")
                     successes += 1
                 else:
-                    print ("Failed Dialog!")
+                    print("Failed Dialog!")
                 cumulative_turns += dialog_manager.state_tracker.turn_count
 
         # simulation
@@ -511,10 +517,11 @@ def run_episodes(count, status):
             if params['train_world_model']:
                 world_model.train(batch_size, 1)
 
-            print ("Simulation success rate %s, Ave reward %s, Ave turns %s, Best success rate %s" % (
+            print("Simulation success rate %s, Ave reward %s, Ave turns %s, Best success rate %s" % (
                 performance_records['success_rate'][episode], performance_records['ave_reward'][episode],
                 performance_records['ave_turns'][episode], best_res['success_rate']))
-            if episode % save_check_point == 0:  # and params['trained_model_path'] == None: # save the model every 10 episodes
+            # save the model every 10 episodes
+            if episode % save_check_point == 0:  # and params['trained_model_path'] == None: 
                 save_model(params['write_model_dir'], agt, best_res['success_rate'], best_model['model'],
                            best_res['epoch'], episode)
                 save_performance_records(params['write_model_dir'], agt, performance_records)
@@ -528,8 +535,8 @@ def run_episodes(count, status):
     status['count'] += count
 
     if agt == 9 and params['trained_model_path'] == None:
-        save_model(params['write_model_dir'], agt, float(successes) / count, best_model['model'], best_res['epoch'],
-                   count)
+        save_model(params['write_model_dir'], agt, float(successes) / count, 
+                   best_model['model'], best_res['epoch'], count)
         save_performance_records(params['write_model_dir'], agt, performance_records)
 
 

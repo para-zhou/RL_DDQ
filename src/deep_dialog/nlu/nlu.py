@@ -4,12 +4,12 @@ Created on Jul 13, 2016
 @author: xiul
 '''
 
-import cPickle as pickle
+import pickle
 import copy
 import numpy as np
 
-from lstm import lstm
-from bi_lstm import biLSTM
+from .lstm import lstm
+from .bi_lstm import biLSTM
 
 
 class nlu:
@@ -46,8 +46,10 @@ class nlu:
     
     def load_nlu_model(self, model_path):
         """ load the trained NLU model """
-
-        model_params = pickle.load(open(model_path))
+        try:
+            model_params = pickle.load(open(model_path, 'rb'), encoding='iso-8859-1')
+        except:
+            model_params = pickle.load(open(win2unix(model_path), 'rb'), encoding='iso-8859-1')
         # model_params = pickle.load(open(model_path, 'rb'))
     
         hidden_size = model_params['model']['Wd'].shape[0]

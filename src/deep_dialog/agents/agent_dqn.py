@@ -9,13 +9,13 @@ Some methods are not consistent with super class Agent.
 '''
 
 import random, copy, json
-import cPickle as pickle
+import pickle
 import numpy as np
 from collections import namedtuple, deque
 
 from deep_dialog import dialog_config
 
-from agent import Agent
+from .agent import Agent
 from deep_dialog.qlearning import DQN
 
 import torch
@@ -234,7 +234,7 @@ class AgentDQN(Agent):
         for (i, action) in enumerate(self.feasible_actions):
             if act_slot_response == action:
                 return i
-        print act_slot_response
+        print(act_slot_response)
         raise Exception("action index not found")
         return None
 
@@ -261,11 +261,11 @@ class AgentDQN(Agent):
         """Sample batch size examples from experience buffer and convert it to torch readable format"""
         # type: (int, ) -> Transition
 
-        batch = [random.choice(self.running_expereince_pool) for i in xrange(batch_size)]
+        batch = [random.choice(self.running_expereince_pool) for i in range(batch_size)]
         np_batch = []
         for x in range(len(Transition._fields)):
             v = []
-            for i in xrange(batch_size):
+            for i in range(batch_size):
                 v.append(batch[i][x])
             np_batch.append(np.vstack(v))
 
@@ -279,7 +279,7 @@ class AgentDQN(Agent):
         self.running_expereince_pool = list(self.experience_replay_pool) + list(self.experience_replay_pool_from_model)
 
         for iter_batch in range(num_batches):
-            for iter in range(len(self.running_expereince_pool) / (batch_size)):
+            for iter in range(int(len(self.running_expereince_pool) / batch_size)):
                 self.optimizer.zero_grad()
                 batch = self.sample_from_buffer(batch_size)
 
@@ -296,7 +296,7 @@ class AgentDQN(Agent):
                 self.cur_bellman_err += loss.item()
 
             if len(self.experience_replay_pool) != 0:
-                print (
+                print(
                     "cur bellman err %.4f, experience replay pool %s, model replay pool %s, cur bellman err for planning %.4f" % (
                         float(self.cur_bellman_err) / (len(self.experience_replay_pool) / (float(batch_size))),
                         len(self.experience_replay_pool), len(self.experience_replay_pool_from_model),
@@ -308,11 +308,11 @@ class AgentDQN(Agent):
     #     self.cur_bellman_err_planning = 0
     #     running_expereince_pool = self.experience_replay_pool + self.experience_replay_pool_from_model
     #     for iter_batch in range(num_batches):
-    #         batch = [random.choice(self.experience_replay_pool) for i in xrange(batch_size)]
+    #         batch = [random.choice(self.experience_replay_pool) for i in range(batch_size)]
     #         np_batch = []
     #         for x in range(5):
     #             v = []
-    #             for i in xrange(len(batch)):
+    #             for i in range(len(batch)):
     #                 v.append(batch[i][x])
     #             np_batch.append(np.vstack(v))
     #
@@ -320,13 +320,13 @@ class AgentDQN(Agent):
     #         self.cur_bellman_err += batch_struct['cost']['total_cost']
     #         if planning:
     #             plan_step = 3
-    #             for _ in xrange(plan_step):
+    #             for _ in range(plan_step):
     #                 batch_planning = [random.choice(self.experience_replay_pool) for i in
-    #                                   xrange(batch_size)]
+    #                                   range(batch_size)]
     #                 np_batch_planning = []
     #                 for x in range(5):
     #                     v = []
-    #                     for i in xrange(len(batch_planning)):
+    #                     for i in range(len(batch_planning)):
     #                         v.append(batch_planning[i][x])
     #                     np_batch_planning.append(np.vstack(v))
     #
@@ -344,7 +344,7 @@ class AgentDQN(Agent):
     #                 self.cur_bellman_err_planning += batch_struct['cost']['total_cost']
     #
     #     if len(self.experience_replay_pool) != 0:
-    #         print ("cur bellman err %.4f, experience replay pool %s, cur bellman err for planning %.4f" % (
+    #         print("cur bellman err %.4f, experience replay pool %s, cur bellman err for planning %.4f" % (
     #             float(self.cur_bellman_err) / (len(self.experience_replay_pool) / (float(batch_size))),
     #             len(self.experience_replay_pool), self.cur_bellman_err_planning))
 
@@ -356,10 +356,10 @@ class AgentDQN(Agent):
 
         try:
             pickle.dump(self.experience_replay_pool, open(path, "wb"))
-            print 'saved model in %s' % (path,)
-        except Exception, e:
-            print 'Error: Writing model fails: %s' % (path,)
-            print e
+            print('saved model in %s' % (path,))
+        except Exception as e:
+            print('Error: Writing model fails: %s' % (path,))
+            print(e)
 
     def load_experience_replay_from_file(self, path):
         """ Load the experience replay pool from a file"""
@@ -371,7 +371,7 @@ class AgentDQN(Agent):
 
         trained_file = pickle.load(open(path, 'rb'))
         model = trained_file['model']
-        print "Trained DQN Parameters:", json.dumps(trained_file['params'], indent=2)
+        print("Trained DQN Parameters:", json.dumps(trained_file['params'], indent=2))
         return model
 
     def set_user_planning(self, user_planning):

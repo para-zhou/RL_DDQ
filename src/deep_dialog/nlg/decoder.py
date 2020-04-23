@@ -42,7 +42,7 @@ class decoder:
     def batchBackward(self, dY, cache):
         caches = cache['caches']
         grads = {}
-        for i in xrange(len(caches)):
+        for i in range(len(caches)):
             single_cache = caches[i]
             local_grads = self.bwdPass(dY[i], single_cache)
             mergeDicts(grads, local_grads) # add up the gradients wrt model parameters
@@ -193,7 +193,7 @@ class decoder:
         total_cost /= len(ds.split[split])
         accuracy = 0 if total == 0 else float(acc)/total
         
-        #print ("perplexity: %s, total_cost: %s, accuracy: %s" % (perplexity, total_cost, accuracy))
+        #print("perplexity: %s, total_cost: %s, accuracy: %s" % (perplexity, total_cost, accuracy))
         result = {'perplexity': perplexity, 'cost': total_cost, 'accuracy': accuracy}
         return result
     
@@ -211,9 +211,9 @@ class decoder:
             if params['dia_slot_val'] == 2 or params['dia_slot_val'] == 3: 
                 sentence = self.post_process(sentence, ele['slotval'], ds.data['slot_dict'])
             
-            print 'test case', i
-            print 'real:', real_sentence
-            print 'pred:', sentence
+            print('test case', i)
+            print('real:', real_sentence)
+            print('pred:', sentence)
     
     """ post_process to fill the slot """
     def post_process(self, pred_template, slot_val_dict, slot_dict):

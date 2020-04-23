@@ -53,8 +53,8 @@ class DialogManager:
         self.state_tracker.update(user_action=self.user_action)
 
         if dialog_config.run_mode < 3:
-            print ("New episode, user goal:")
-            print json.dumps(self.user.goal, indent=2)
+            print("New episode, user goal:")
+            print(json.dumps(self.user.goal, indent=2))
         self.print_function(user_action=self.user_action)
 
         self.agent.initialize_episode()
@@ -144,7 +144,7 @@ class DialogManager:
         if agent_action:
             if dialog_config.run_mode == 0:
                 if self.agent.__class__.__name__ != 'AgentCmd':
-                    print ("Turn %d sys: %s" % (agent_action['turn'], agent_action['nl']))
+                    print("Turn %d sys: %s" % (agent_action['turn'], agent_action['nl']))
             elif dialog_config.run_mode == 1:
                 if self.agent.__class__.__name__ != 'AgentCmd':
                     print("Turn %d sys: %s, inform_slots: %s, request slots: %s" % (
@@ -154,7 +154,7 @@ class DialogManager:
                 print("Turn %d sys: %s, inform_slots: %s, request slots: %s" % (
                     agent_action['turn'], agent_action['diaact'], agent_action['inform_slots'],
                     agent_action['request_slots']))
-                print ("Turn %d sys: %s" % (agent_action['turn'], agent_action['nl']))
+                print("Turn %d sys: %s" % (agent_action['turn'], agent_action['nl']))
 
             if dialog_config.auto_suggest == 1:
                 print(
@@ -162,16 +162,16 @@ class DialogManager:
                     self.state_tracker.get_suggest_slots_values(agent_action['request_slots'])))
         elif user_action:
             if dialog_config.run_mode == 0:
-                print ("Turn %d usr: %s" % (user_action['turn'], user_action['nl']))
+                print("Turn %d usr: %s" % (user_action['turn'], user_action['nl']))
             elif dialog_config.run_mode == 1:
-                print ("Turn %s usr: %s, inform_slots: %s, request_slots: %s" % (
+                print("Turn %s usr: %s, inform_slots: %s, request_slots: %s" % (
                     user_action['turn'], user_action['diaact'], user_action['inform_slots'],
                     user_action['request_slots']))
             elif dialog_config.run_mode == 2:  # debug mode, show both
-                print ("Turn %d usr: %s, inform_slots: %s, request_slots: %s" % (
+                print("Turn %d usr: %s, inform_slots: %s, request_slots: %s" % (
                     user_action['turn'], user_action['diaact'], user_action['inform_slots'],
                     user_action['request_slots']))
-                print ("Turn %d usr: %s" % (user_action['turn'], user_action['nl']))
+                print("Turn %d usr: %s" % (user_action['turn'], user_action['nl']))
 
             if self.agent.__class__.__name__ == 'AgentCmd':  # command line agent
                 user_request_slots = user_action['request_slots']
@@ -185,4 +185,4 @@ class DialogManager:
                             print('(Suggested Values: there is no available %s)' % (slot))
                 else:
                     kb_results = self.state_tracker.get_current_kb_results()
-                    print ('(Number of movies in KB satisfying current constraints: %s)' % len(kb_results))
+                    print('(Number of movies in KB satisfying current constraints: %s)' % len(kb_results))

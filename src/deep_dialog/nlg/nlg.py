@@ -7,13 +7,13 @@ Created on Oct 17, 2016
 @author: xiul
 '''
 
-import cPickle as pickle
+import pickle
 import copy, argparse, json
 import numpy as np
 
 from deep_dialog import dialog_config
 from deep_dialog.nlg.lstm_decoder_tanh import lstm_decoder_tanh
-
+from deep_dialog.data.win2unix import win2unix
 
 class nlg:
     def __init__(self):
@@ -54,19 +54,21 @@ class nlg:
         boolean_in = False
         
         # remove I do not care slot in task(complete)
-        if dia_act['diaact'] == 'inform' and 'taskcomplete' in dia_act['inform_slots'].keys() and dia_act['inform_slots']['taskcomplete'] != dialog_config.NO_VALUE_MATCH:
-            inform_slot_set = dia_act['inform_slots'].keys()
-            for slot in inform_slot_set:
+        if dia_act['diaact'] == 'inform' and 'taskcomplete' in dia_act['inform_slots'].keys() and \
+            dia_act['inform_slots']['taskcomplete'] != dialog_config.NO_VALUE_MATCH:
+            for slot in list(dia_act['inform_slots'].keys()):
                 if dia_act['inform_slots'][slot] == dialog_config.I_DO_NOT_CARE: del dia_act['inform_slots'][slot]
         
         if dia_act['diaact'] in self.diaact_nl_pairs['dia_acts'].keys():
             for ele in self.diaact_nl_pairs['dia_acts'][dia_act['diaact']]:
-                if set(ele['inform_slots']) == set(dia_act['inform_slots'].keys()) and set(ele['request_slots']) == set(dia_act['request_slots'].keys()):
+                if set(ele['inform_slots']) == set(dia_act['inform_slots'].keys()) and \
+                    set(ele['request_slots']) == set(dia_act['request_slots'].keys()):
                     sentence = self.diaact_to_nl_slot_filling(dia_act, ele['nl'][turn_msg])
                     boolean_in = True
                     break
         
-        if dia_act['diaact'] == 'inform' and 'taskcomplete' in dia_act['inform_slots'].keys() and dia_act['inform_slots']['taskcomplete'] == dialog_config.NO_VALUE_MATCH:
+        if dia_act['diaact'] == 'inform' and 'taskcomplete' in dia_act['inform_slots'].keys() and \
+            dia_act['inform_slots']['taskcomplete'] == dialog_config.NO_VALUE_MATCH:
             sentence = "Oh sorry, there is no ticket available."
         
         if boolean_in == False: sentence = self.translate_diaact(dia_act)
@@ -124,7 +126,8 @@ class nlg:
         dia_act_rep['diaact'] = final_representation
         dia_act_rep['words'] = words
     
-        #pred_ys, pred_words = nlg_model['model'].forward(inverse_word_dict, dia_act_rep, nlg_model['params'], predict_model=True)
+        #pred_ys, pred_words = nlg_model['model'].forward(
+        # inverse_word_dict, dia_act_rep, nlg_model['params'], predict_model=True)
         pred_ys, pred_words = self.model.beam_forward(inverse_word_dict, dia_act_rep, self.params, predict_model=True)
         pred_sentence = ' '.join(pred_words[:-1])
         sentence = self.post_process(pred_sentence, dia_act['inform_slots'], slot_dict)
@@ -135,7 +138,10 @@ class nlg:
     def load_nlg_model(self, model_path):
         """ load the trained NLG model """
         
-        model_params = pickle.load(open(model_path))
+        try:
+            model_params = pickle.load(open(model_path, 'rb'), encoding='iso-8859-1')
+        except:
+            model_params = pickle.load(open(win2unix(model_path), 'rb'), encoding='iso-8859-1')
     
         hidden_size = model_params['model']['Wd'].shape[0]
         output_size = model_params['model']['Wd'].shape[1]
@@ -169,10 +175,9 @@ class nlg:
                 break
             elif slot_val == dialog_config.I_DO_NOT_CARE:
                 counter += 1
-                sentence = sentence.replace('$'+slot+'$', '', 1)
+                sentence = sentence.replace(b'$'+slot.encode()+b'$', b'', 1)
                 continue
-            
-            sentence = sentence.replace('$'+slot+'$', slot_val, 1)
+            sentence = sentence.replace(b'$'+slot.encode()+b'$', slot_val.encode(), 1)
         
         if counter > 0 and counter == len(dia_act['inform_slots']):
             sentence = dialog_config.I_DO_NOT_CARE
@@ -201,7 +206,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     params = vars(args)
 
-    print ("User Simulator Parameters:")
-    print (json.dumps(params, indent=2))
+    print("User Simulator Parameters:")
+    print(json.dumps(params, indent=2))
 
     main(params)

@@ -5,7 +5,7 @@ Created on May 17, 2016
 """
 
 
-from agent import Agent
+from .agent import Agent
 
 class AgentCmd(Agent):
     
@@ -28,7 +28,7 @@ class AgentCmd(Agent):
 
         user_action = state['user_action']
         # get input from the command line
-        print "Turn", user_action['turn'] + 1, "sys:",
+        print("Turn", user_action['turn'] + 1, "sys:")
         command = raw_input()
         
         if self.agent_input_mode == 0: # nl
@@ -57,7 +57,7 @@ class AgentCmd(Agent):
         if act in self.act_set: # dialog_config.all_acts
             act_slot_value_response['diaact'] = act
         else:
-            print ("Something wrong for your input dialog act! Please check your input ...")
+            print("Something wrong for your input dialog act! Please check your input ...")
 
         if len(annot) > 0: # slot-pair values: slot[val] = id
             annot_segs = annot.split(';') #slot-value pairs
