@@ -155,7 +155,7 @@ class ModelBasedSimulator(UserSimulator):
 
         return Transition(*np_batch)
 
-    def train(self, batch_size=1, num_batches=1):
+    def train(self, batch_size=1, num_batches=1, episode=1, print_interval=1):
         """
         Train the world model with all the accumulated examples
         :param batch_size: self-explained
@@ -183,10 +183,11 @@ class ModelBasedSimulator(UserSimulator):
 
                 self.optimizer.step()
                 self.total_loss += loss.item()
-
-            print("Total cost for user modeling: %.4f, training replay pool %s" % (
-                float(self.total_loss) / (float(len(self.training_examples)) / float(batch_size)),
-                len(self.training_examples)))
+            
+            if episode % print_interval == 0:
+                print("Total cost for user modeling: %.4f, training replay pool %s" % (
+                    float(self.total_loss) / (float(len(self.training_examples)) / float(batch_size)),
+                    len(self.training_examples)))
 
     def train_by_iter(self, batch_size=1, num_batches=1):
         """

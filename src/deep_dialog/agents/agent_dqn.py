@@ -1,11 +1,7 @@
 '''
-Created on Oct 30, 2017
-
 An DQN Agent modified for DDQ Agent
 
 Some methods are not consistent with super class Agent.
-
-@author: Baolin Peng
 '''
 
 import random, copy, json
@@ -22,7 +18,7 @@ import torch
 import torch.optim as optim
 import torch.nn.functional as F
 
-DEVICE = torch.device('cpu')
+DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 Transition = namedtuple('Transition', ('state', 'action', 'reward', 'next_state', 'term'))
 
@@ -271,7 +267,7 @@ class AgentDQN(Agent):
 
         return Transition(*np_batch)
 
-    def train(self, batch_size=1, num_batches=100):
+    def train(self, batch_size=1, num_batches=100, episode=1, print_interval=1):
         """ Train DQN with experience buffer that comes from both user and world model interaction."""
 
         self.cur_bellman_err = 0.
@@ -295,7 +291,7 @@ class AgentDQN(Agent):
                 self.optimizer.step()
                 self.cur_bellman_err += loss.item()
 
-            if len(self.experience_replay_pool) != 0:
+            if len(self.experience_replay_pool) != 0 and (episode % print_interval == 0):
                 print(
                     "cur bellman err %.4f, experience replay pool %s, model replay pool %s, cur bellman err for planning %.4f" % (
                         float(self.cur_bellman_err) / (len(self.experience_replay_pool) / (float(batch_size))),

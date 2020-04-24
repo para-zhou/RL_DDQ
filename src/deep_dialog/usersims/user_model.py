@@ -25,7 +25,7 @@ class SimulatorModel(nn.Module):
     def forward(self, s, a):
         h_s = self.linear_i2h(s)
         h_a = self.agent_emb(a).squeeze(1)
-        h = F.tanh(h_s + h_a)
+        h = torch.tanh(h_s + h_a)
 
         reward = self.linear_h2r(h)
         term = self.linear_h2t(h)
@@ -36,10 +36,10 @@ class SimulatorModel(nn.Module):
     def predict(self, s, a):
         h_s = self.linear_i2h(s)
         h_a = self.agent_emb(a).squeeze(1)
-        h = F.tanh(h_s + h_a)
+        h = torch.tanh(h_s + h_a)
 
         reward = self.linear_h2r(h)
-        term = F.sigmoid(self.linear_h2t(h))
+        term = torch.sigmoid(self.linear_h2t(h))
         action = F.log_softmax(self.linear_h2a(h), 1)
 
         return reward, term, action.argmax(1)

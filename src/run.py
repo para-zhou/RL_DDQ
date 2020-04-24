@@ -1,10 +1,6 @@
 """
-Created on May 22, 2016
-
 This should be a simple minimalist run file. It's only responsibility should be to parse the arguments 
 (which agent, user simulator to use) and launch a dialog simulation.
-
-@author: xiul, t-zalipt, baolin
 """
 
 import argparse, json, copy, os
@@ -114,7 +110,9 @@ if __name__ == "__main__":
                         help='the path for trained model')
     parser.add_argument('-o', '--write_model_dir', dest='write_model_dir', type=str,
                         default='./deep_dialog/checkpoints/', help='write model to disk')
-    parser.add_argument('--save_check_point', dest='save_check_point', type=int, default=10,
+    parser.add_argument('--save_check_point', dest='save_check_point', type=int, default=100,
+                        help='number of epochs for saving model')
+    parser.add_argument('--print_interval', dest='print_interval', type=int, default=20,
                         help='number of epochs for saving model')
 
     # We changed to have a queue to hold experences. So this threshold will not be used to flush the buffer.
@@ -148,6 +146,9 @@ usr = params['usr']
 
 dict_path = params['dict_path']
 goal_file_path = params['goal_file_path']
+
+if not os.path.exists(params['write_model_dir']):
+    os.mkdir(params['write_model_dir'])
 
 # load the user goals from .p file
 try:
@@ -300,6 +301,7 @@ agent.planning_steps = planning_steps
 
 success_rate_threshold = params['success_rate_threshold']
 save_check_point = params['save_check_point']
+print_interval = params['print_interval']
 
 """ Best Model and Performance Records """
 best_model = {}
@@ -329,7 +331,7 @@ def save_performance_records(path, agt, records):
     filename = 'agt_%s_performance_records.json' % (agt)
     filepath = os.path.join(path, filename)
     try:
-        json.dump(records, open(filepath, "wb"))
+        json.dump(records, open(filepath, "w", encoding="utf8"))
         print('saved model in %s' % (filepath,))
     except Exception as e:
         print('Error: Writing model fails: %s' % (filepath,))
@@ -352,16 +354,16 @@ def simulation_epoch(simulation_epoch_size):
             if episode_over:
                 if reward > 0:
                     successes += 1
-                    print("simulation episode %s: Success" % (episode))
-                else:
-                    print("simulation episode %s: Fail" % (episode))
+                    # print("simulation episode %s: Success" % (episode))
+                # else:
+                    # print("simulation episode %s: Fail" % (episode))
                 cumulative_turns += dialog_manager.state_tracker.turn_count
 
     res['success_rate'] = float(successes) / simulation_epoch_size
     res['ave_reward'] = float(cumulative_reward) / simulation_epoch_size
     res['ave_turns'] = float(cumulative_turns) / simulation_epoch_size
-    print("simulation success rate %s, ave reward %s, ave turns %s" % (
-        res['success_rate'], res['ave_reward'], res['ave_turns']))
+    # print("simulation success rate %s, ave reward %s, ave turns %s" % (
+    #     res['success_rate'], res['ave_reward'], res['ave_turns']))
     return res
 
 
@@ -387,16 +389,16 @@ def simulation_epoch_for_training(simulation_epoch_size, grounded_for_model=Fals
             if episode_over:
                 if reward > 0:
                     successes += 1
-                    print("simulation episode %s: Success" % (episode))
-                else:
-                    print("simulation episode %s: Fail" % (episode))
+                    # print("simulation episode %s: Success" % (episode))
+                # else:
+                    # print("simulation episode %s: Fail" % (episode))
                 cumulative_turns += dialog_manager.state_tracker.turn_count
 
     res['success_rate'] = float(successes) / simulation_epoch_size
     res['ave_reward'] = float(cumulative_reward) / simulation_epoch_size
     res['ave_turns'] = float(cumulative_turns) / simulation_epoch_size
-    print("simulation success rate %s, ave reward %s, ave turns %s" % (
-        res['success_rate'], res['ave_reward'], res['ave_turns']))
+    # print("simulation success rate %s, ave reward %s, ave turns %s" % (
+    #     res['success_rate'], res['ave_reward'], res['ave_turns']))
     return res
 
 
@@ -467,7 +469,7 @@ def run_episodes(count, status):
 
     for episode in range(count):
 
-        print("Episode: %s" % (episode))
+        # print("Episode: %s" % (episode))
         agent.predict_mode = False
         dialog_manager.initialize_episode(True)
         episode_over = False
@@ -478,10 +480,10 @@ def run_episodes(count, status):
 
             if episode_over:
                 if reward > 0:
-                    print("Successful Dialog!")
+                    # print("Successful Dialog!")
                     successes += 1
-                else:
-                    print("Failed Dialog!")
+                # else:
+                    # print("Failed Dialog!")
                 cumulative_turns += dialog_manager.state_tracker.turn_count
 
         # simulation
@@ -511,26 +513,31 @@ def run_episodes(count, status):
                 best_res['ave_turns'] = simulation_res['ave_turns']
                 best_res['epoch'] = episode
 
-            agent.train(batch_size, 1)
+            agent.train(batch_size, 1, episode, print_interval)
+            # agent.train(batch_size, 1)
             agent.reset_dqn_target()
 
             if params['train_world_model']:
-                world_model.train(batch_size, 1)
+                world_model.train(batch_size, 1, episode, print_interval)
+                # world_model.train(batch_size, 1)
 
-            print("Simulation success rate %s, Ave reward %s, Ave turns %s, Best success rate %s" % (
-                performance_records['success_rate'][episode], performance_records['ave_reward'][episode],
-                performance_records['ave_turns'][episode], best_res['success_rate']))
             # save the model every 10 episodes
             if episode % save_check_point == 0:  # and params['trained_model_path'] == None: 
                 save_model(params['write_model_dir'], agt, best_res['success_rate'], best_model['model'],
                            best_res['epoch'], episode)
                 save_performance_records(params['write_model_dir'], agt, performance_records)
 
-        print("Progress: %s / %s, Success rate: %s / %s Avg reward: %.2f Avg turns: %.2f" % (
-            episode + 1, count, successes, episode + 1, float(cumulative_reward) / (episode + 1),
-            float(cumulative_turns) / (episode + 1)))
-    print("Success rate: %s / %s Avg reward: %.2f Avg turns: %.2f" % (
-        successes, count, float(cumulative_reward) / count, float(cumulative_turns) / count))
+            if episode % print_interval == 0:
+                print("-"*100, "\n", "Progress: %s / %s, Success rate: %s / %s Avg reward: %.2f Avg turns: %.2f" % (
+                    episode + 1, count, successes, episode + 1, float(cumulative_reward) / (episode + 1),
+                    float(cumulative_turns) / (episode + 1)))
+                print("Simulation success rate %s, Ave reward %s, Ave turns %s, Best success rate %s" % (
+                    performance_records['success_rate'][episode], performance_records['ave_reward'][episode],
+                    performance_records['ave_turns'][episode], best_res['success_rate']))
+        
+    print("_"*100, "\n","Success rate: %s / %s (%.2f), Avg reward: %.2f, Avg turns: %.2f" % (
+        successes, count, float(successes / count), float(cumulative_reward) / count, float(cumulative_turns) / count))
+    
     status['successes'] += successes
     status['count'] += count
 
