@@ -5,10 +5,13 @@ This should be a simple minimalist run file. It's only responsibility should be 
 
 import argparse, json, copy, os
 import pickle
+import numpy
+import random
+import torch
 
 from deep_dialog.dialog_system import DialogManager, text_to_dict
 from deep_dialog.agents import (AgentCmd, InformAgent, RequestAllAgent, RandomAgent, 
-                                EchoAgent, RequestBasicsAgent, AgentDQN)
+                                EchoAgent, RequestBasicsAgent, AgentDQN, AgentSAC, AgentTD3)
 from deep_dialog.usersims import RuleSimulator, ModelBasedSimulator
 
 from deep_dialog import dialog_config
@@ -18,10 +21,6 @@ from deep_dialog.nlu import nlu
 from deep_dialog.nlg import nlg
 
 from deep_dialog.data.win2unix import win2unix
-
-import numpy
-import random
-import torch
 
 
 seed = 5
@@ -68,7 +67,7 @@ if __name__ == "__main__":
     parser.add_argument('--usr', dest='usr', default=0, type=int,
                         help='Select a user simulator. 0 is a Frozen user simulator.')
 
-    parser.add_argument('--epsilon', dest='epsilon', type=float, default=0,
+    parser.add_argument('--epsilon', dest='epsilon', type=float, default=0.3,
                         help='Epsilon to determine stochasticity of epsilon-greedy agent policies')
 
     # load NLG & NLU model
@@ -113,7 +112,7 @@ if __name__ == "__main__":
     parser.add_argument('--save_check_point', dest='save_check_point', type=int, default=100,
                         help='number of epochs for saving model')
     parser.add_argument('--print_interval', dest='print_interval', type=int, default=20,
-                        help='number of epochs for saving model')
+                        help='interval of printing the process')
 
     # We changed to have a queue to hold experences. So this threshold will not be used to flush the buffer.
     parser.add_argument('--success_rate_threshold', dest='success_rate_threshold', type=float, default=0.6,
@@ -144,13 +143,11 @@ num_episodes = params['episodes']
 agt = params['agt']
 usr = params['usr']
 
-dict_path = params['dict_path']
-goal_file_path = params['goal_file_path']
-
 if not os.path.exists(params['write_model_dir']):
     os.mkdir(params['write_model_dir'])
 
 # load the user goals from .p file
+goal_file_path = params['goal_file_path']
 try:
     all_goal_set = pickle.load(open(goal_file_path, 'rb'))
 except:
@@ -179,6 +176,7 @@ slot_set = text_to_dict(params['slot_set'])
 ################################################################################
 # a movie dictionary for user simulator - slot:possible values
 ################################################################################
+dict_path = params['dict_path']
 try:
     movie_dictionary = pickle.load(open(dict_path, 'rb'), encoding='iso-8859-1')
 except:
@@ -220,8 +218,12 @@ elif agt == 4:
     agent = EchoAgent(movie_kb, act_set, slot_set, agent_params)
 elif agt == 5:
     agent = RequestBasicsAgent(movie_kb, act_set, slot_set, agent_params)
-elif agt == 9:
+elif agt == 6:
     agent = AgentDQN(movie_kb, act_set, slot_set, agent_params)
+elif agt == 7:
+    agent = AgentSAC(movie_kb, act_set, slot_set, agent_params)
+elif agt == 9:
+    agent = AgentTD3(movie_kb, act_set, slot_set, agent_params)
 
 ################################################################################
 #    Add your agent here
@@ -419,9 +421,9 @@ def warm_start_simulation():
             if episode_over:
                 if reward > 0:
                     successes += 1
-                    print("warm_start simulation episode %s: Success" % (episode))
-                else:
-                    print("warm_start simulation episode %s: Fail" % (episode))
+                #     print("warm_start simulation episode %s: Success" % (episode))
+                # else:
+                #     print("warm_start simulation episode %s: Fail" % (episode))
                 cumulative_turns += dialog_manager.state_tracker.turn_count
 
         warm_start_run_epochs += 1
@@ -462,7 +464,7 @@ def run_episodes(count, status):
     grounded_for_model = params['grounded']
     simulation_epoch_size = planning_steps + 1
 
-    if agt == 9 and params['trained_model_path'] == None and warm_start == 1:
+    if (agt == 6 or agt == 9) and params['trained_model_path'] == None and warm_start == 1:
         print('warm_start starting ...')
         warm_start_simulation()
         print('warm_start finished, start RL training ...')
@@ -487,7 +489,7 @@ def run_episodes(count, status):
                 cumulative_turns += dialog_manager.state_tracker.turn_count
 
         # simulation
-        if agt == 9 and params['trained_model_path'] == None:
+        if (agt == 6 or agt == 9) and params['trained_model_path'] == None:
             agent.predict_mode = True
             world_model.predict_mode = True
             simulation_epoch_for_training(simulation_epoch_size, grounded_for_model)
@@ -527,7 +529,7 @@ def run_episodes(count, status):
                            best_res['epoch'], episode)
                 save_performance_records(params['write_model_dir'], agt, performance_records)
 
-            if episode % print_interval == 0:
+            if True: #episode % print_interval == 0:
                 print("-"*100, "\n", "Progress: %s / %s, Success rate: %s / %s Avg reward: %.2f Avg turns: %.2f" % (
                     episode + 1, count, successes, episode + 1, float(cumulative_reward) / (episode + 1),
                     float(cumulative_turns) / (episode + 1)))
@@ -541,7 +543,7 @@ def run_episodes(count, status):
     status['successes'] += successes
     status['count'] += count
 
-    if agt == 9 and params['trained_model_path'] == None:
+    if (agt == 6 or agt == 9) and params['trained_model_path'] == None:
         save_model(params['write_model_dir'], agt, float(successes) / count, 
                    best_model['model'], best_res['epoch'], count)
         save_performance_records(params['write_model_dir'], agt, performance_records)

@@ -1,5 +1,5 @@
 '''
-An DQN Agent modified for DDQ Agent
+An SAC Agent modified for DDQ Agent
 
 Some methods are not consistent with super class Agent.
 '''
@@ -9,21 +9,21 @@ import pickle
 import numpy as np
 from collections import namedtuple, deque
 
-from deep_dialog import dialog_config
+import torch
+import torch.nn.functional as F
+from torch.optim import Adam
+from torch.distributions import Categorical
 
 from .agent import Agent
+from deep_dialog import dialog_config
 from deep_dialog.qlearning import DQN
+from .sac_model import soft_update, hard_update, QNetwork, GaussianPolicy, DeterministicPolicy, ActorCritic, CategoricalPolicy
 
-import torch
-import torch.optim as optim
-import torch.nn.functional as F
-
-DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 Transition = namedtuple('Transition', ('state', 'action', 'reward', 'next_state', 'term'))
 
 
-class AgentDQN(Agent):
+class AgentSAC(Agent):
     def __init__(self, movie_dict=None, act_set=None, slot_set=None, params=None):
         self.movie_dict = movie_dict
         self.act_set = act_set
@@ -51,14 +51,21 @@ class AgentDQN(Agent):
         self.warm_start = params.get('warm_start', 0)
 
         self.max_turn = params['max_turn'] + 5
+        self.target_update_interval = 1
+        self.alpha = 0.2
+        self.tau = 0.005
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
         self.state_dimension = 2 * self.act_cardinality + 7 * self.slot_cardinality + 3 + self.max_turn
+        
+        self.critic = QNetwork(self.state_dimension, self.num_actions, self.hidden_size).to(self.device)
+        self.critic_target = QNetwork(self.state_dimension, self.num_actions, self.hidden_size).to(self.device)
+        hard_update(self.critic_target, self.critic)
 
-        self.dqn = DQN(self.state_dimension, self.hidden_size, self.num_actions).to(DEVICE)
-        self.target_dqn = DQN(self.state_dimension, self.hidden_size, self.num_actions).to(DEVICE)
-        self.target_dqn.load_state_dict(self.dqn.state_dict())
-        self.target_dqn.eval()
+        self.critic_optim = Adam(self.critic.parameters(), lr=1e-3)
 
-        self.optimizer = optim.RMSprop(self.dqn.parameters(), lr=1e-3)
+        self.policy = GaussianPolicy(self.state_dimension, self.num_actions, self.hidden_size, np.arange(self.num_actions)).to(self.device)
+        self.policy_optim = Adam(self.policy.parameters(), lr=1e-3)
 
         self.cur_bellman_err = 0
 
@@ -68,6 +75,89 @@ class AgentDQN(Agent):
             self.predict_mode = True
             self.warm_start = 2
 
+    def select_action(self, state, evaluate=False):
+        state = torch.FloatTensor(state).to(self.device).unsqueeze(0)
+        if evaluate == False:
+            action, log_prob, _ = self.policy.sample(state)
+        else:
+            _, log_prob, action = self.policy.sample(state)
+        # return action.detach().cpu().numpy()[0]
+        return torch.IntTensor([torch.argmax(log_prob).item()])
+
+    def update_parameters(self, batch):
+        # SAC update of transition memory batch
+        # Transition = namedtuple('Transition', ('state', 'action', 'reward', 'next_state', 'term'))
+        # (16, 273) (16, 1) (16, 1) (16, 273) (16, 1)
+        state_batch = torch.FloatTensor(batch.state).to(self.device)
+        action_batch = torch.FloatTensor(batch.action).to(self.device)
+        reward_batch = torch.FloatTensor(batch.reward).to(self.device)
+        next_state_batch = torch.FloatTensor(batch.next_state).to(self.device)
+        term_batch = torch.FloatTensor(batch.term).to(self.device)
+
+        with torch.no_grad():
+            next_state_action, next_state_log_pi, _ = self.policy.sample(next_state_batch)
+            next_state_action, _ = next_state_action.max(1)
+            next_state_action = next_state_action.unsqueeze(1)
+            qf1_next_target, qf2_next_target = self.critic_target(next_state_batch, next_state_action)
+            min_qf_next_target = torch.min(qf1_next_target, qf2_next_target) - self.alpha * next_state_log_pi
+            next_q_value = reward_batch + self.gamma * (min_qf_next_target) * (1 - term_batch)
+        # (16, 1), (16, 1) <- (16, 273+1)
+        qf1, qf2 = self.critic(state_batch, action_batch)  # Two Q-functions to mitigate positive bias in the policy improvement step
+        qf1_loss = F.mse_loss(qf1, next_q_value)  # JQ = 𝔼(st,at)~D[0.5(Q1(st,at) - r(st,at) - γ(𝔼st+1~p[V(st+1)]))^2]
+        qf2_loss = F.mse_loss(qf2, next_q_value)  # JQ = 𝔼(st,at)~D[0.5(Q1(st,at) - r(st,at) - γ(𝔼st+1~p[V(st+1)]))^2]
+
+        pi, log_pi, _ = self.policy.sample(state_batch)
+        pi, _ = pi.max(1)
+        pi = pi.unsqueeze(1)
+        qf1_pi, qf2_pi = self.critic(state_batch, pi)
+        min_qf_pi = torch.min(qf1_pi, qf2_pi)
+
+        policy_loss = ((self.alpha * log_pi) - min_qf_pi).mean() # Jπ = 𝔼st∼D,εt∼N[α * logπ(f(εt;st)|st) − Q(st,f(εt;st))]
+
+        self.critic_optim.zero_grad()
+        qf1_loss.backward()
+        self.critic_optim.step()
+
+        self.critic_optim.zero_grad()
+        qf2_loss.backward()
+        self.critic_optim.step()
+
+        self.policy_optim.zero_grad()
+        policy_loss.backward()
+        self.policy_optim.step()
+
+        self.cur_bellman_err += policy_loss.item()
+
+        alpha_loss = torch.tensor(0.).to(self.device)
+        alpha_tlogs = torch.tensor(self.alpha) # For TensorboardX logs
+
+        soft_update(self.critic_target, self.critic, self.tau)
+
+        # return qf1_loss.item(), qf2_loss.item(), policy_loss.item(), alpha_loss.item(), alpha_tlogs.item()
+    
+    # Save model parameters
+    def save_model(self, env_name, suffix="", actor_path=None, critic_path=None):
+        if not os.path.exists('models/'):
+            os.makedirs('models/')
+
+        if actor_path is None:
+            actor_path = "models/sac_actor_{}_{}".format(env_name, suffix)
+        if critic_path is None:
+            critic_path = "models/sac_critic_{}_{}".format(env_name, suffix)
+        print('Saving models to {} and {}'.format(actor_path, critic_path))
+        torch.save(self.policy.state_dict(), actor_path)
+        torch.save(self.critic.state_dict(), critic_path)
+
+    # Load model parameters
+    def load_model(self, actor_path, critic_path):
+        print('Loading models from {} and {}'.format(actor_path, critic_path))
+        if actor_path is not None:
+            self.policy.load_state_dict(torch.load(actor_path))
+        if critic_path is not None:
+            self.critic.load_state_dict(torch.load(critic_path))
+
+########################################################################################################################
+
     def initialize_episode(self):
         """ Initialize a new episode. This function is called every time a new episode is run. """
 
@@ -76,7 +166,8 @@ class AgentDQN(Agent):
         self.request_set = ['moviename', 'starttime', 'city', 'date', 'theater', 'numberofpeople']
 
     def state_to_action(self, state):
-        """ DQN: Input state, output action """
+        """ SAC: Input state, output action """
+
         # self.state['turn'] += 2
         self.representation = self.prepare_state_representation(state)
         self.action = self.run_policy(self.representation)
@@ -95,86 +186,54 @@ class AgentDQN(Agent):
         kb_results_dict = state['kb_results_dict']
         agent_last = state['agent_action']
 
-        ########################################################################
         #   Create one-hot of acts to represent the current user action
-        ########################################################################
         user_act_rep = np.zeros((1, self.act_cardinality))
         user_act_rep[0, self.act_set[user_action['diaact']]] = 1.0
 
-        ########################################################################
-        #     Create bag of inform slots representation to represent the current user action
-        ########################################################################
+        #   Create bag of inform slots representation to represent the current user action
         user_inform_slots_rep = np.zeros((1, self.slot_cardinality))
         for slot in user_action['inform_slots'].keys():
             user_inform_slots_rep[0, self.slot_set[slot]] = 1.0
 
-        ########################################################################
         #   Create bag of request slots representation to represent the current user action
-        ########################################################################
         user_request_slots_rep = np.zeros((1, self.slot_cardinality))
         for slot in user_action['request_slots'].keys():
             user_request_slots_rep[0, self.slot_set[slot]] = 1.0
 
-        ########################################################################
         #   Creat bag of filled_in slots based on the current_slots
-        ########################################################################
         current_slots_rep = np.zeros((1, self.slot_cardinality))
         for slot in current_slots['inform_slots']:
             current_slots_rep[0, self.slot_set[slot]] = 1.0
 
-        ########################################################################
         #   Encode last agent act
-        ########################################################################
         agent_act_rep = np.zeros((1, self.act_cardinality))
         if agent_last:
             agent_act_rep[0, self.act_set[agent_last['diaact']]] = 1.0
 
-        ########################################################################
         #   Encode last agent inform slots
-        ########################################################################
         agent_inform_slots_rep = np.zeros((1, self.slot_cardinality))
         if agent_last:
             for slot in agent_last['inform_slots'].keys():
                 agent_inform_slots_rep[0, self.slot_set[slot]] = 1.0
 
-        ########################################################################
         #   Encode last agent request slots
-        ########################################################################
         agent_request_slots_rep = np.zeros((1, self.slot_cardinality))
         if agent_last:
             for slot in agent_last['request_slots'].keys():
                 agent_request_slots_rep[0, self.slot_set[slot]] = 1.0
 
-        # turn_rep = np.zeros((1,1)) + state['turn'] / 10.
+        #   turn_rep = np.zeros((1,1)) + state['turn'] / 10.
         turn_rep = np.zeros((1, 1))
 
-        ########################################################################
-        #  One-hot representation of the turn count?
-        ########################################################################
+        #   One-hot representation of the turn count?
         turn_onehot_rep = np.zeros((1, self.max_turn))
         turn_onehot_rep[0, state['turn']] = 1.0
 
-        # ########################################################################
-        # #   Representation of KB results (scaled counts)
-        # ########################################################################
-        # kb_count_rep = np.zeros((1, self.slot_cardinality + 1)) + kb_results_dict['matching_all_constraints'] / 100.
-        # for slot in kb_results_dict:
-        #     if slot in self.slot_set:
-        #         kb_count_rep[0, self.slot_set[slot]] = kb_results_dict[slot] / 100.
-        #
-        # ########################################################################
-        # #   Representation of KB results (binary)
-        # ########################################################################
-        # kb_binary_rep = np.zeros((1, self.slot_cardinality + 1)) + np.sum( kb_results_dict['matching_all_constraints'] > 0.)
-        # for slot in kb_results_dict:
-        #     if slot in self.slot_set:
-        #         kb_binary_rep[0, self.slot_set[slot]] = np.sum( kb_results_dict[slot] > 0.)
+        #   Representation of KB results (scaled counts)
 
         kb_count_rep = np.zeros((1, self.slot_cardinality + 1))
 
-        ########################################################################
         #   Representation of KB results (binary)
-        ########################################################################
         kb_binary_rep = np.zeros((1, self.slot_cardinality + 1))
 
         self.final_representation = np.hstack(
@@ -193,7 +252,7 @@ class AgentDQN(Agent):
                     self.warm_start = 2
                 return self.rule_policy()
             else:
-                return self.DQN_policy(representation)
+                return self.select_action(representation)
 
     def rule_policy(self):
         """ Rule Policy """
@@ -216,13 +275,6 @@ class AgentDQN(Agent):
             act_slot_response = {'diaact': "thanks", 'inform_slots': {}, 'request_slots': {}}
 
         return self.action_index(act_slot_response)
-
-    def DQN_policy(self, state_representation):
-        """ Return action from DQN"""
-
-        with torch.no_grad():
-            action = self.dqn.predict(torch.FloatTensor(state_representation))
-        return action
 
     def action_index(self, act_slot_response):
         """ Return the index of action """
@@ -256,6 +308,7 @@ class AgentDQN(Agent):
     def sample_from_buffer(self, batch_size):
         """Sample batch size examples from experience buffer and convert it to torch readable format"""
         # type: (int, ) -> Transition
+        # Transition = namedtuple('Transition', ('state', 'action', 'reward', 'next_state', 'term'))
 
         batch = [random.choice(self.running_expereince_pool) for i in range(batch_size)]
         np_batch = []
@@ -268,82 +321,19 @@ class AgentDQN(Agent):
         return Transition(*np_batch)
 
     def train(self, batch_size=1, num_batches=100, episode=1, print_interval=1):
-        """ Train DQN with experience buffer that comes from both user and world model interaction."""
-        if episode > 100: self.epsilon = 0
+        """ Train SAC with experience buffer that comes from both user and world model interaction."""
 
-        self.cur_bellman_err = 0.
-        self.cur_bellman_err_planning = 0.
         self.running_expereince_pool = list(self.experience_replay_pool) + list(self.experience_replay_pool_from_model)
 
-        for iter_batch in range(num_batches):
-            for iter in range(int(len(self.running_expereince_pool) / batch_size)):
-                self.optimizer.zero_grad()
+        for iter_num in range(num_batches):
+            for iter_batch in range(int(len(self.running_expereince_pool) / batch_size)):
                 batch = self.sample_from_buffer(batch_size)
-
-                state_value = self.dqn(torch.FloatTensor(batch.state)).gather(1, torch.tensor(batch.action))
-                next_state_value, _ = self.target_dqn(torch.FloatTensor(batch.next_state)).max(1)
-                next_state_value = next_state_value.unsqueeze(1)
-                term = np.asarray(batch.term, dtype=np.float32)
-                expected_value = torch.FloatTensor(batch.reward) + self.gamma * next_state_value * (
-                    1 - torch.FloatTensor(term))
-
-                loss = F.mse_loss(state_value, expected_value)
-                loss.backward()
-                self.optimizer.step()
-                self.cur_bellman_err += loss.item()
+                self.update_parameters(batch)                
 
             if len(self.experience_replay_pool) != 0 and (episode % print_interval == 0):
-                print(
-                    "cur bellman err %.4f, experience replay pool %s, model replay pool %s, cur bellman err for planning %.4f" % (
-                        float(self.cur_bellman_err) / (len(self.experience_replay_pool) / (float(batch_size))),
-                        len(self.experience_replay_pool), len(self.experience_replay_pool_from_model),
-                        self.cur_bellman_err_planning))
-
-    # def train_one_iter(self, batch_size=1, num_batches=100, planning=False):
-    #     """ Train DQN with experience replay """
-    #     self.cur_bellman_err = 0
-    #     self.cur_bellman_err_planning = 0
-    #     running_expereince_pool = self.experience_replay_pool + self.experience_replay_pool_from_model
-    #     for iter_batch in range(num_batches):
-    #         batch = [random.choice(self.experience_replay_pool) for i in range(batch_size)]
-    #         np_batch = []
-    #         for x in range(5):
-    #             v = []
-    #             for i in range(len(batch)):
-    #                 v.append(batch[i][x])
-    #             np_batch.append(np.vstack(v))
-    #
-    #         batch_struct = self.dqn.singleBatch(np_batch)
-    #         self.cur_bellman_err += batch_struct['cost']['total_cost']
-    #         if planning:
-    #             plan_step = 3
-    #             for _ in range(plan_step):
-    #                 batch_planning = [random.choice(self.experience_replay_pool) for i in
-    #                                   range(batch_size)]
-    #                 np_batch_planning = []
-    #                 for x in range(5):
-    #                     v = []
-    #                     for i in range(len(batch_planning)):
-    #                         v.append(batch_planning[i][x])
-    #                     np_batch_planning.append(np.vstack(v))
-    #
-    #                 s_tp1, r, t = self.user_planning.predict(np_batch_planning[0], np_batch_planning[1])
-    #                 s_tp1[np.where(s_tp1 >= 0.5)] = 1
-    #                 s_tp1[np.where(s_tp1 <= 0.5)] = 0
-    #
-    #                 t[np.where(t >= 0.5)] = 1
-    #
-    #                 np_batch_planning[2] = r
-    #                 np_batch_planning[3] = s_tp1
-    #                 np_batch_planning[4] = t
-    #
-    #                 batch_struct = self.dqn.singleBatch(np_batch_planning)
-    #                 self.cur_bellman_err_planning += batch_struct['cost']['total_cost']
-    #
-    #     if len(self.experience_replay_pool) != 0:
-    #         print("cur bellman err %.4f, experience replay pool %s, cur bellman err for planning %.4f" % (
-    #             float(self.cur_bellman_err) / (len(self.experience_replay_pool) / (float(batch_size))),
-    #             len(self.experience_replay_pool), self.cur_bellman_err_planning))
+                print("cur bellman err %.4f, experience replay pool %s, model replay pool %s" % (
+                    float(self.cur_bellman_err) / (len(self.experience_replay_pool) / (float(batch_size))),
+                    len(self.experience_replay_pool), len(self.experience_replay_pool_from_model)))
 
     ################################################################################
     #    Debug Functions
@@ -375,10 +365,10 @@ class AgentDQN(Agent):
         self.user_planning = user_planning
 
     def save(self, filename):
-        torch.save(self.dqn.state_dict(), filename)
+        torch.save(self.critic.state_dict(), filename)
 
     def load(self, filename):
-        self.dqn.load_state_dict(torch.load(filename))
+        self.critic.load_state_dict(torch.load(filename))
 
     def reset_dqn_target(self):
-        self.target_dqn.load_state_dict(self.dqn.state_dict())
+        self.critic_target.load_state_dict(self.critic.state_dict())
