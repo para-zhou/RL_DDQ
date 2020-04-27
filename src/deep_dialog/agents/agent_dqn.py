@@ -18,7 +18,8 @@ import torch
 import torch.optim as optim
 import torch.nn.functional as F
 
-DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+# DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+DEVICE = torch.device('cpu')
 
 Transition = namedtuple('Transition', ('state', 'action', 'reward', 'next_state', 'term'))
 

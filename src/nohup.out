@@ -1,0 +1,1624 @@
+Traceback (most recent call last):
+  File "run.py", line 8, in <module>
+    import numpy
+ModuleNotFoundError: No module named 'numpy'
+  File "./train.sh", line 1
+    k=$1
+      ^
+SyntaxError: invalid syntax
+Dialog Parameters: 
+{
+  "dict_path": "./deep_dialog/data/dicts.v3.p",
+  "movie_kb_path": "./deep_dialog/data/movie_kb.1k.p",
+  "act_set": "./deep_dialog/data/dia_acts.txt",
+  "slot_set": "./deep_dialog/data/slot_set.txt",
+  "goal_file_path": "./deep_dialog/data/user_goals_first_turn_template.part.movie.v1.p",
+  "diaact_nl_pairs": "./deep_dialog/data/dia_act_nl_pairs.v6.json",
+  "max_turn": 40,
+  "episodes": 500,
+  "slot_err_prob": 0.0,
+  "slot_err_mode": 0,
+  "intent_err_prob": 0.0,
+  "agt": 6,
+  "usr": 1,
+  "epsilon": 0.3,
+  "nlg_model_path": "./deep_dialog/models/nlg/lstm_tanh_relu_[1468202263.38]_2_0.610.p",
+  "nlu_model_path": "./deep_dialog/models/nlu/lstm_[1468447442.91]_39_80_0.921.p",
+  "act_level": 0,
+  "run_mode": 3,
+  "auto_suggest": 0,
+  "cmd_input_mode": 0,
+  "experience_replay_pool_size": 5000,
+  "dqn_hidden_size": 80,
+  "batch_size": 16,
+  "gamma": 0.9,
+  "predict_mode": false,
+  "simulation_epoch_size": 100,
+  "warm_start": 1,
+  "warm_start_epochs": 100,
+  "planning_steps": 40,
+  "trained_model_path": null,
+  "write_model_dir": "./deep_dialog/checkpoints/runk40",
+  "save_check_point": 100,
+  "print_interval": 20,
+  "success_rate_threshold": 0.6,
+  "split_fold": 5,
+  "learning_phase": "all",
+  "grounded": 0,
+  "boosted": 1,
+  "train_world_model": 1,
+  "torch_seed": 100
+}
+warm_start starting ...
+Total cost for user modeling: 1.7443, training replay pool 1090
+Total cost for user modeling: 2.7762, training replay pool 1090
+Total cost for user modeling: 3.5220, training replay pool 1090
+Total cost for user modeling: 4.1257, training replay pool 1090
+Total cost for user modeling: 4.6802, training replay pool 1090
+Warm_Start 100 epochs, success rate 0.19, ave reward -27.1, ave turns 21.8
+Current experience replay buffer size 1090
+warm_start finished, start RL training ...
+cur bellman err 295.2724, experience replay pool 1111, model replay pool 676, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.5373, training replay pool 1111
+saved model in ./deep_dialog/checkpoints/runk40/agt_6_0_0_0.00000.pkl
+saved model in ./deep_dialog/checkpoints/runk40/agt_6_performance_records.json
+---------------------------------------------------------------------------------------------------- 
+ Progress: 1 / 500, Success rate: 0 / 1 Avg reward: -60.00 Avg turns: 42.00
+Simulation success rate 0.0, Ave reward -58.18, Ave turns 38.36, Best success rate 0
+---------------------------------------------------------------------------------------------------- 
+ Progress: 2 / 500, Success rate: 0 / 2 Avg reward: -60.00 Avg turns: 42.00
+Simulation success rate 0.0, Ave reward -57.52, Ave turns 37.04, Best success rate 0
+---------------------------------------------------------------------------------------------------- 
+ Progress: 3 / 500, Success rate: 0 / 3 Avg reward: -60.00 Avg turns: 42.00
+Simulation success rate 0.0, Ave reward -57.98, Ave turns 37.96, Best success rate 0
+---------------------------------------------------------------------------------------------------- 
+ Progress: 4 / 500, Success rate: 0 / 4 Avg reward: -60.00 Avg turns: 42.00
+Simulation success rate 0.0, Ave reward -56.48, Ave turns 34.96, Best success rate 0
+---------------------------------------------------------------------------------------------------- 
+ Progress: 5 / 500, Success rate: 0 / 5 Avg reward: -60.00 Avg turns: 42.00
+Simulation success rate 0.0, Ave reward -57.96, Ave turns 37.92, Best success rate 0
+---------------------------------------------------------------------------------------------------- 
+ Progress: 6 / 500, Success rate: 0 / 6 Avg reward: -60.00 Avg turns: 42.00
+Simulation success rate 0.0, Ave reward -56.64, Ave turns 35.28, Best success rate 0
+---------------------------------------------------------------------------------------------------- 
+ Progress: 7 / 500, Success rate: 0 / 7 Avg reward: -57.71 Avg turns: 37.43
+Simulation success rate 0.0, Ave reward -58.68, Ave turns 39.36, Best success rate 0
+---------------------------------------------------------------------------------------------------- 
+ Progress: 8 / 500, Success rate: 0 / 8 Avg reward: -56.50 Avg turns: 35.00
+Simulation success rate 0.04, Ave reward -50.42, Ave turns 32.44, Best success rate 0.04
+---------------------------------------------------------------------------------------------------- 
+ Progress: 9 / 500, Success rate: 0 / 9 Avg reward: -56.89 Avg turns: 35.78
+Simulation success rate 0.04, Ave reward -52.02, Ave turns 35.64, Best success rate 0.04
+---------------------------------------------------------------------------------------------------- 
+ Progress: 10 / 500, Success rate: 0 / 10 Avg reward: -57.20 Avg turns: 36.40
+Simulation success rate 0.08, Ave reward -43.58, Ave turns 28.36, Best success rate 0.08
+---------------------------------------------------------------------------------------------------- 
+ Progress: 11 / 500, Success rate: 0 / 11 Avg reward: -56.09 Avg turns: 34.18
+Simulation success rate 0.02, Ave reward -47.24, Ave turns 21.28, Best success rate 0.08
+---------------------------------------------------------------------------------------------------- 
+ Progress: 12 / 500, Success rate: 0 / 12 Avg reward: -56.42 Avg turns: 34.83
+Simulation success rate 0.0, Ave reward -49.46, Ave turns 20.92, Best success rate 0.08
+---------------------------------------------------------------------------------------------------- 
+ Progress: 13 / 500, Success rate: 0 / 13 Avg reward: -55.46 Avg turns: 32.92
+Simulation success rate 0.0, Ave reward -50.38, Ave turns 22.76, Best success rate 0.08
+---------------------------------------------------------------------------------------------------- 
+ Progress: 14 / 500, Success rate: 0 / 14 Avg reward: -55.57 Avg turns: 33.14
+Simulation success rate 0.0, Ave reward -48.7, Ave turns 19.4, Best success rate 0.08
+---------------------------------------------------------------------------------------------------- 
+ Progress: 15 / 500, Success rate: 0 / 15 Avg reward: -55.07 Avg turns: 32.13
+Simulation success rate 0.0, Ave reward -55.02, Ave turns 32.04, Best success rate 0.08
+---------------------------------------------------------------------------------------------------- 
+ Progress: 16 / 500, Success rate: 0 / 16 Avg reward: -54.38 Avg turns: 30.75
+Simulation success rate 0.02, Ave reward -52.72, Ave turns 32.24, Best success rate 0.08
+---------------------------------------------------------------------------------------------------- 
+ Progress: 17 / 500, Success rate: 0 / 17 Avg reward: -54.41 Avg turns: 30.82
+Simulation success rate 0.08, Ave reward -44.06, Ave turns 29.32, Best success rate 0.08
+---------------------------------------------------------------------------------------------------- 
+ Progress: 18 / 500, Success rate: 0 / 18 Avg reward: -54.00 Avg turns: 30.00
+Simulation success rate 0.18, Ave reward -30.52, Ave turns 26.24, Best success rate 0.18
+---------------------------------------------------------------------------------------------------- 
+ Progress: 19 / 500, Success rate: 0 / 19 Avg reward: -53.68 Avg turns: 29.37
+Simulation success rate 0.16, Ave reward -34.92, Ave turns 30.24, Best success rate 0.18
+---------------------------------------------------------------------------------------------------- 
+ Progress: 20 / 500, Success rate: 0 / 20 Avg reward: -54.00 Avg turns: 30.00
+Simulation success rate 0.12, Ave reward -41.26, Ave turns 33.32, Best success rate 0.18
+cur bellman err 116.7791, experience replay pool 1438, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.2518, training replay pool 1438
+---------------------------------------------------------------------------------------------------- 
+ Progress: 21 / 500, Success rate: 0 / 21 Avg reward: -53.62 Avg turns: 29.24
+Simulation success rate 0.16, Ave reward -30.62, Ave turns 21.64, Best success rate 0.18
+---------------------------------------------------------------------------------------------------- 
+ Progress: 22 / 500, Success rate: 0 / 22 Avg reward: -53.82 Avg turns: 29.64
+Simulation success rate 0.1, Ave reward -41.68, Ave turns 29.36, Best success rate 0.18
+---------------------------------------------------------------------------------------------------- 
+ Progress: 23 / 500, Success rate: 0 / 23 Avg reward: -53.74 Avg turns: 29.48
+Simulation success rate 0.16, Ave reward -29.3, Ave turns 19.0, Best success rate 0.18
+---------------------------------------------------------------------------------------------------- 
+ Progress: 24 / 500, Success rate: 0 / 24 Avg reward: -54.00 Avg turns: 30.00
+Simulation success rate 0.08, Ave reward -44.38, Ave turns 29.96, Best success rate 0.18
+---------------------------------------------------------------------------------------------------- 
+ Progress: 25 / 500, Success rate: 0 / 25 Avg reward: -54.24 Avg turns: 30.48
+Simulation success rate 0.12, Ave reward -35.38, Ave turns 21.56, Best success rate 0.18
+---------------------------------------------------------------------------------------------------- 
+ Progress: 26 / 500, Success rate: 0 / 26 Avg reward: -54.38 Avg turns: 30.77
+Simulation success rate 0.18, Ave reward -32.64, Ave turns 30.48, Best success rate 0.18
+---------------------------------------------------------------------------------------------------- 
+ Progress: 27 / 500, Success rate: 0 / 27 Avg reward: -54.59 Avg turns: 31.19
+Simulation success rate 0.2, Ave reward -31.84, Ave turns 33.68, Best success rate 0.2
+---------------------------------------------------------------------------------------------------- 
+ Progress: 28 / 500, Success rate: 0 / 28 Avg reward: -54.64 Avg turns: 31.29
+Simulation success rate 0.18, Ave reward -32.1, Ave turns 29.4, Best success rate 0.2
+---------------------------------------------------------------------------------------------------- 
+ Progress: 29 / 500, Success rate: 0 / 29 Avg reward: -54.21 Avg turns: 30.41
+Simulation success rate 0.16, Ave reward -35.4, Ave turns 31.2, Best success rate 0.2
+---------------------------------------------------------------------------------------------------- 
+ Progress: 30 / 500, Success rate: 0 / 30 Avg reward: -54.40 Avg turns: 30.80
+Simulation success rate 0.12, Ave reward -41.12, Ave turns 33.04, Best success rate 0.2
+---------------------------------------------------------------------------------------------------- 
+ Progress: 31 / 500, Success rate: 0 / 31 Avg reward: -54.32 Avg turns: 30.65
+Simulation success rate 0.1, Ave reward -42.28, Ave turns 30.56, Best success rate 0.2
+---------------------------------------------------------------------------------------------------- 
+ Progress: 32 / 500, Success rate: 0 / 32 Avg reward: -54.34 Avg turns: 30.69
+Simulation success rate 0.14, Ave reward -38.68, Ave turns 32.96, Best success rate 0.2
+---------------------------------------------------------------------------------------------------- 
+ Progress: 33 / 500, Success rate: 0 / 33 Avg reward: -54.52 Avg turns: 31.03
+Simulation success rate 0.36, Ave reward -9.76, Ave turns 27.92, Best success rate 0.36
+---------------------------------------------------------------------------------------------------- 
+ Progress: 34 / 500, Success rate: 0 / 34 Avg reward: -54.68 Avg turns: 31.35
+Simulation success rate 0.18, Ave reward -31.14, Ave turns 27.48, Best success rate 0.36
+---------------------------------------------------------------------------------------------------- 
+ Progress: 35 / 500, Success rate: 1 / 35 Avg reward: -51.03 Avg turns: 30.91
+Simulation success rate 0.38, Ave reward -5.68, Ave turns 24.56, Best success rate 0.38
+---------------------------------------------------------------------------------------------------- 
+ Progress: 36 / 500, Success rate: 1 / 36 Avg reward: -51.28 Avg turns: 31.22
+Simulation success rate 0.26, Ave reward -22.52, Ave turns 29.44, Best success rate 0.38
+---------------------------------------------------------------------------------------------------- 
+ Progress: 37 / 500, Success rate: 1 / 37 Avg reward: -51.43 Avg turns: 31.35
+Simulation success rate 0.36, Ave reward -9.82, Ave turns 28.04, Best success rate 0.38
+---------------------------------------------------------------------------------------------------- 
+ Progress: 38 / 500, Success rate: 1 / 38 Avg reward: -51.66 Avg turns: 31.63
+Simulation success rate 0.48, Ave reward 5.6, Ave turns 26.0, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 39 / 500, Success rate: 1 / 39 Avg reward: -51.79 Avg turns: 31.74
+Simulation success rate 0.26, Ave reward -23.2, Ave turns 30.8, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 40 / 500, Success rate: 1 / 40 Avg reward: -51.75 Avg turns: 31.50
+Simulation success rate 0.26, Ave reward -23.8, Ave turns 32.0, Best success rate 0.48
+cur bellman err 135.9072, experience replay pool 1698, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.1179, training replay pool 1698
+---------------------------------------------------------------------------------------------------- 
+ Progress: 41 / 500, Success rate: 1 / 41 Avg reward: -51.93 Avg turns: 31.71
+Simulation success rate 0.32, Ave reward -15.68, Ave turns 30.16, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 42 / 500, Success rate: 1 / 42 Avg reward: -52.12 Avg turns: 31.95
+Simulation success rate 0.18, Ave reward -34.9, Ave turns 35.0, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 43 / 500, Success rate: 2 / 43 Avg reward: -49.33 Avg turns: 31.81
+Simulation success rate 0.26, Ave reward -22.68, Ave turns 29.76, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 44 / 500, Success rate: 3 / 44 Avg reward: -46.64 Avg turns: 31.64
+Simulation success rate 0.24, Ave reward -25.6, Ave turns 30.8, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 45 / 500, Success rate: 3 / 45 Avg reward: -46.67 Avg turns: 31.33
+Simulation success rate 0.34, Ave reward -11.94, Ave turns 27.48, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 46 / 500, Success rate: 4 / 46 Avg reward: -44.00 Avg turns: 30.87
+Simulation success rate 0.28, Ave reward -20.12, Ave turns 29.44, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 47 / 500, Success rate: 4 / 47 Avg reward: -44.19 Avg turns: 30.81
+Simulation success rate 0.32, Ave reward -14.46, Ave turns 27.72, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 48 / 500, Success rate: 4 / 48 Avg reward: -44.52 Avg turns: 31.04
+Simulation success rate 0.24, Ave reward -24.4, Ave turns 28.4, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 49 / 500, Success rate: 5 / 49 Avg reward: -42.12 Avg turns: 30.73
+Simulation success rate 0.18, Ave reward -27.98, Ave turns 21.16, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 50 / 500, Success rate: 5 / 50 Avg reward: -42.30 Avg turns: 30.60
+Simulation success rate 0.2, Ave reward -27.26, Ave turns 24.52, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 51 / 500, Success rate: 5 / 51 Avg reward: -42.65 Avg turns: 30.82
+Simulation success rate 0.36, Ave reward -8.74, Ave turns 25.88, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 52 / 500, Success rate: 6 / 52 Avg reward: -40.56 Avg turns: 30.81
+Simulation success rate 0.24, Ave reward -25.88, Ave turns 31.36, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 53 / 500, Success rate: 6 / 53 Avg reward: -40.58 Avg turns: 30.34
+Simulation success rate 0.36, Ave reward -8.84, Ave turns 26.08, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 54 / 500, Success rate: 6 / 54 Avg reward: -40.93 Avg turns: 30.52
+Simulation success rate 0.28, Ave reward -19.38, Ave turns 27.96, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 55 / 500, Success rate: 6 / 55 Avg reward: -41.27 Avg turns: 30.73
+Simulation success rate 0.26, Ave reward -22.84, Ave turns 30.08, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 56 / 500, Success rate: 6 / 56 Avg reward: -41.57 Avg turns: 30.86
+Simulation success rate 0.4, Ave reward -4.78, Ave turns 27.56, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 57 / 500, Success rate: 7 / 57 Avg reward: -39.67 Avg turns: 30.81
+Simulation success rate 0.2, Ave reward -30.68, Ave turns 31.36, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 58 / 500, Success rate: 8 / 58 Avg reward: -37.86 Avg turns: 30.83
+Simulation success rate 0.24, Ave reward -26.5, Ave turns 32.6, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 59 / 500, Success rate: 8 / 59 Avg reward: -38.24 Avg turns: 31.02
+Simulation success rate 0.14, Ave reward -36.34, Ave turns 28.28, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 60 / 500, Success rate: 8 / 60 Avg reward: -38.60 Avg turns: 31.20
+Simulation success rate 0.24, Ave reward -24.6, Ave turns 28.8, Best success rate 0.48
+cur bellman err 114.4962, experience replay pool 1997, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0879, training replay pool 1997
+---------------------------------------------------------------------------------------------------- 
+ Progress: 61 / 500, Success rate: 8 / 61 Avg reward: -38.93 Avg turns: 31.34
+Simulation success rate 0.24, Ave reward -27.9, Ave turns 35.4, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 62 / 500, Success rate: 8 / 62 Avg reward: -39.05 Avg turns: 31.06
+Simulation success rate 0.22, Ave reward -25.7, Ave turns 26.2, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 63 / 500, Success rate: 9 / 63 Avg reward: -37.29 Avg turns: 30.86
+Simulation success rate 0.3, Ave reward -16.28, Ave turns 26.56, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 64 / 500, Success rate: 10 / 64 Avg reward: -35.52 Avg turns: 30.53
+Simulation success rate 0.36, Ave reward -9.56, Ave turns 27.52, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 65 / 500, Success rate: 10 / 65 Avg reward: -35.72 Avg turns: 30.37
+Simulation success rate 0.32, Ave reward -12.52, Ave turns 23.84, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 66 / 500, Success rate: 10 / 66 Avg reward: -36.03 Avg turns: 30.42
+Simulation success rate 0.32, Ave reward -12.92, Ave turns 24.64, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 67 / 500, Success rate: 10 / 67 Avg reward: -36.39 Avg turns: 30.60
+Simulation success rate 0.26, Ave reward -24.82, Ave turns 34.04, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 68 / 500, Success rate: 11 / 68 Avg reward: -34.74 Avg turns: 30.29
+Simulation success rate 0.38, Ave reward -4.06, Ave turns 21.32, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 69 / 500, Success rate: 11 / 69 Avg reward: -34.81 Avg turns: 29.88
+Simulation success rate 0.4, Ave reward -6.42, Ave turns 30.84, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 70 / 500, Success rate: 11 / 70 Avg reward: -35.16 Avg turns: 30.03
+Simulation success rate 0.38, Ave reward -6.06, Ave turns 25.32, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 71 / 500, Success rate: 11 / 71 Avg reward: -35.51 Avg turns: 30.20
+Simulation success rate 0.26, Ave reward -24.18, Ave turns 32.76, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 72 / 500, Success rate: 12 / 72 Avg reward: -34.04 Avg turns: 30.08
+Simulation success rate 0.3, Ave reward -16.06, Ave turns 26.12, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 73 / 500, Success rate: 12 / 73 Avg reward: -34.37 Avg turns: 30.19
+Simulation success rate 0.4, Ave reward -5.12, Ave turns 28.24, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 74 / 500, Success rate: 12 / 74 Avg reward: -34.72 Avg turns: 30.35
+Simulation success rate 0.4, Ave reward -4.68, Ave turns 27.36, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 75 / 500, Success rate: 12 / 75 Avg reward: -35.01 Avg turns: 30.43
+Simulation success rate 0.22, Ave reward -28.0, Ave turns 30.8, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 76 / 500, Success rate: 13 / 76 Avg reward: -33.63 Avg turns: 30.32
+Simulation success rate 0.26, Ave reward -23.88, Ave turns 32.16, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 77 / 500, Success rate: 13 / 77 Avg reward: -33.97 Avg turns: 30.47
+Simulation success rate 0.22, Ave reward -26.52, Ave turns 27.84, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 78 / 500, Success rate: 14 / 78 Avg reward: -32.64 Avg turns: 30.36
+Simulation success rate 0.22, Ave reward -29.38, Ave turns 33.56, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 79 / 500, Success rate: 14 / 79 Avg reward: -32.73 Avg turns: 30.00
+Simulation success rate 0.24, Ave reward -24.74, Ave turns 29.08, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 80 / 500, Success rate: 14 / 80 Avg reward: -33.08 Avg turns: 30.15
+Simulation success rate 0.46, Ave reward 1.98, Ave turns 28.44, Best success rate 0.48
+cur bellman err 108.0105, experience replay pool 2258, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0716, training replay pool 2258
+---------------------------------------------------------------------------------------------------- 
+ Progress: 81 / 500, Success rate: 14 / 81 Avg reward: -33.41 Avg turns: 30.30
+Simulation success rate 0.32, Ave reward -14.22, Ave turns 27.24, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 82 / 500, Success rate: 15 / 82 Avg reward: -32.17 Avg turns: 30.24
+Simulation success rate 0.36, Ave reward -10.94, Ave turns 30.28, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 83 / 500, Success rate: 15 / 83 Avg reward: -32.41 Avg turns: 30.19
+Simulation success rate 0.34, Ave reward -11.98, Ave turns 27.56, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 84 / 500, Success rate: 15 / 84 Avg reward: -32.74 Avg turns: 30.33
+Simulation success rate 0.3, Ave reward -16.34, Ave turns 26.68, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 85 / 500, Success rate: 15 / 85 Avg reward: -33.06 Avg turns: 30.47
+Simulation success rate 0.4, Ave reward -4.14, Ave turns 26.28, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 86 / 500, Success rate: 16 / 86 Avg reward: -31.86 Avg turns: 30.37
+Simulation success rate 0.32, Ave reward -14.74, Ave turns 28.28, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 87 / 500, Success rate: 16 / 87 Avg reward: -32.18 Avg turns: 30.51
+Simulation success rate 0.42, Ave reward -3.22, Ave turns 29.24, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 88 / 500, Success rate: 16 / 88 Avg reward: -32.47 Avg turns: 30.57
+Simulation success rate 0.18, Ave reward -31.94, Ave turns 29.08, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 89 / 500, Success rate: 16 / 89 Avg reward: -32.73 Avg turns: 30.61
+Simulation success rate 0.4, Ave reward -3.68, Ave turns 25.36, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 90 / 500, Success rate: 17 / 90 Avg reward: -31.56 Avg turns: 30.44
+Simulation success rate 0.44, Ave reward 1.42, Ave turns 24.76, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 91 / 500, Success rate: 17 / 91 Avg reward: -31.87 Avg turns: 30.57
+Simulation success rate 0.42, Ave reward -2.3, Ave turns 27.4, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 92 / 500, Success rate: 17 / 92 Avg reward: -32.17 Avg turns: 30.70
+Simulation success rate 0.4, Ave reward -5.08, Ave turns 28.16, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 93 / 500, Success rate: 17 / 93 Avg reward: -32.47 Avg turns: 30.82
+Simulation success rate 0.3, Ave reward -18.02, Ave turns 30.04, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 94 / 500, Success rate: 17 / 94 Avg reward: -32.70 Avg turns: 30.81
+Simulation success rate 0.28, Ave reward -20.48, Ave turns 30.16, Best success rate 0.48
+---------------------------------------------------------------------------------------------------- 
+ Progress: 95 / 500, Success rate: 17 / 95 Avg reward: -32.99 Avg turns: 30.93
+Simulation success rate 0.5, Ave reward 8.6, Ave turns 24.8, Best success rate 0.5
+---------------------------------------------------------------------------------------------------- 
+ Progress: 96 / 500, Success rate: 18 / 96 Avg reward: -31.89 Avg turns: 30.77
+Simulation success rate 0.34, Ave reward -13.52, Ave turns 30.64, Best success rate 0.5
+---------------------------------------------------------------------------------------------------- 
+ Progress: 97 / 500, Success rate: 18 / 97 Avg reward: -32.18 Avg turns: 30.89
+Simulation success rate 0.3, Ave reward -18.32, Ave turns 30.64, Best success rate 0.5
+---------------------------------------------------------------------------------------------------- 
+ Progress: 98 / 500, Success rate: 18 / 98 Avg reward: -32.46 Avg turns: 31.00
+Simulation success rate 0.32, Ave reward -14.88, Ave turns 28.56, Best success rate 0.5
+---------------------------------------------------------------------------------------------------- 
+ Progress: 99 / 500, Success rate: 18 / 99 Avg reward: -32.74 Avg turns: 31.11
+Simulation success rate 0.5, Ave reward 7.38, Ave turns 27.24, Best success rate 0.5
+---------------------------------------------------------------------------------------------------- 
+ Progress: 100 / 500, Success rate: 18 / 100 Avg reward: -33.01 Avg turns: 31.22
+Simulation success rate 0.44, Ave reward 0.3, Ave turns 27.0, Best success rate 0.5
+cur bellman err 158.1355, experience replay pool 2537, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0674, training replay pool 2537
+saved model in ./deep_dialog/checkpoints/runk40/agt_6_94_100_0.50000.pkl
+saved model in ./deep_dialog/checkpoints/runk40/agt_6_performance_records.json
+---------------------------------------------------------------------------------------------------- 
+ Progress: 101 / 500, Success rate: 18 / 101 Avg reward: -33.28 Avg turns: 31.33
+Simulation success rate 0.22, Ave reward -28.72, Ave turns 32.24, Best success rate 0.5
+---------------------------------------------------------------------------------------------------- 
+ Progress: 102 / 500, Success rate: 18 / 102 Avg reward: -33.54 Avg turns: 31.43
+Simulation success rate 0.4, Ave reward -4.16, Ave turns 26.32, Best success rate 0.5
+---------------------------------------------------------------------------------------------------- 
+ Progress: 103 / 500, Success rate: 19 / 103 Avg reward: -32.50 Avg turns: 31.28
+Simulation success rate 0.64, Ave reward 26.88, Ave turns 21.84, Best success rate 0.64
+---------------------------------------------------------------------------------------------------- 
+ Progress: 104 / 500, Success rate: 20 / 104 Avg reward: -31.52 Avg turns: 31.19
+Simulation success rate 0.76, Ave reward 36.42, Ave turns 31.56, Best success rate 0.76
+---------------------------------------------------------------------------------------------------- 
+ Progress: 105 / 500, Success rate: 21 / 105 Avg reward: -30.55 Avg turns: 31.10
+Simulation success rate 0.74, Ave reward 37.6, Ave turns 24.4, Best success rate 0.76
+---------------------------------------------------------------------------------------------------- 
+ Progress: 106 / 500, Success rate: 22 / 106 Avg reward: -29.60 Avg turns: 31.02
+Simulation success rate 0.74, Ave reward 37.84, Ave turns 23.92, Best success rate 0.76
+---------------------------------------------------------------------------------------------------- 
+ Progress: 107 / 500, Success rate: 22 / 107 Avg reward: -29.89 Avg turns: 31.12
+Simulation success rate 0.72, Ave reward 36.74, Ave turns 21.32, Best success rate 0.76
+---------------------------------------------------------------------------------------------------- 
+ Progress: 108 / 500, Success rate: 22 / 108 Avg reward: -30.06 Avg turns: 31.02
+Simulation success rate 0.76, Ave reward 41.82, Ave turns 20.76, Best success rate 0.76
+---------------------------------------------------------------------------------------------------- 
+ Progress: 109 / 500, Success rate: 22 / 109 Avg reward: -30.34 Avg turns: 31.12
+Simulation success rate 0.8, Ave reward 47.92, Ave turns 18.16, Best success rate 0.8
+---------------------------------------------------------------------------------------------------- 
+ Progress: 110 / 500, Success rate: 23 / 110 Avg reward: -29.45 Avg turns: 31.07
+Simulation success rate 0.62, Ave reward 19.2, Ave turns 32.4, Best success rate 0.8
+---------------------------------------------------------------------------------------------------- 
+ Progress: 111 / 500, Success rate: 24 / 111 Avg reward: -28.55 Avg turns: 30.99
+Simulation success rate 0.62, Ave reward 24.4, Ave turns 22.0, Best success rate 0.8
+---------------------------------------------------------------------------------------------------- 
+ Progress: 112 / 500, Success rate: 25 / 112 Avg reward: -27.64 Avg turns: 30.86
+Simulation success rate 0.86, Ave reward 57.1, Ave turns 14.2, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 113 / 500, Success rate: 25 / 113 Avg reward: -27.93 Avg turns: 30.96
+Simulation success rate 0.78, Ave reward 45.88, Ave turns 17.44, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 114 / 500, Success rate: 26 / 114 Avg reward: -27.08 Avg turns: 30.89
+Simulation success rate 0.82, Ave reward 47.12, Ave turns 24.56, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 115 / 500, Success rate: 27 / 115 Avg reward: -26.24 Avg turns: 30.83
+Simulation success rate 0.7, Ave reward 33.54, Ave turns 22.92, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 116 / 500, Success rate: 27 / 116 Avg reward: -26.47 Avg turns: 30.81
+Simulation success rate 0.4, Ave reward -6.08, Ave turns 30.16, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 117 / 500, Success rate: 28 / 117 Avg reward: -25.62 Avg turns: 30.68
+Simulation success rate 0.66, Ave reward 30.1, Ave turns 20.2, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 118 / 500, Success rate: 28 / 118 Avg reward: -25.92 Avg turns: 30.78
+Simulation success rate 0.12, Ave reward -40.58, Ave turns 31.96, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 119 / 500, Success rate: 29 / 119 Avg reward: -25.08 Avg turns: 30.66
+Simulation success rate 0.54, Ave reward 11.18, Ave turns 29.24, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 120 / 500, Success rate: 30 / 120 Avg reward: -24.28 Avg turns: 30.57
+Simulation success rate 0.78, Ave reward 42.66, Ave turns 23.88, Best success rate 0.86
+cur bellman err 210.9749, experience replay pool 2816, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0494, training replay pool 2816
+---------------------------------------------------------------------------------------------------- 
+ Progress: 121 / 500, Success rate: 30 / 121 Avg reward: -24.49 Avg turns: 30.48
+Simulation success rate 0.8, Ave reward 47.14, Ave turns 19.72, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 122 / 500, Success rate: 31 / 122 Avg reward: -23.69 Avg turns: 30.36
+Simulation success rate 0.76, Ave reward 43.3, Ave turns 17.8, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 123 / 500, Success rate: 31 / 123 Avg reward: -23.98 Avg turns: 30.46
+Simulation success rate 0.22, Ave reward -29.44, Ave turns 33.68, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 124 / 500, Success rate: 31 / 124 Avg reward: -24.17 Avg turns: 30.34
+Simulation success rate 0.68, Ave reward 33.44, Ave turns 18.32, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 125 / 500, Success rate: 31 / 125 Avg reward: -24.46 Avg turns: 30.43
+Simulation success rate 0.8, Ave reward 47.22, Ave turns 19.56, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 126 / 500, Success rate: 32 / 126 Avg reward: -23.68 Avg turns: 30.32
+Simulation success rate 0.68, Ave reward 31.18, Ave turns 22.84, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 127 / 500, Success rate: 33 / 127 Avg reward: -22.92 Avg turns: 30.20
+Simulation success rate 0.68, Ave reward 32.42, Ave turns 20.36, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 128 / 500, Success rate: 34 / 128 Avg reward: -22.22 Avg turns: 30.19
+Simulation success rate 0.66, Ave reward 26.56, Ave turns 27.28, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 129 / 500, Success rate: 35 / 129 Avg reward: -21.48 Avg turns: 30.08
+Simulation success rate 0.72, Ave reward 36.86, Ave turns 21.08, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 130 / 500, Success rate: 36 / 130 Avg reward: -20.74 Avg turns: 29.94
+Simulation success rate 0.74, Ave reward 40.32, Ave turns 18.96, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 131 / 500, Success rate: 37 / 131 Avg reward: -20.02 Avg turns: 29.83
+Simulation success rate 0.5, Ave reward 10.56, Ave turns 20.88, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 132 / 500, Success rate: 38 / 132 Avg reward: -19.30 Avg turns: 29.70
+Simulation success rate 0.82, Ave reward 50.7, Ave turns 17.4, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 133 / 500, Success rate: 39 / 133 Avg reward: -18.61 Avg turns: 29.59
+Simulation success rate 0.5, Ave reward 9.24, Ave turns 23.52, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 134 / 500, Success rate: 40 / 134 Avg reward: -17.91 Avg turns: 29.46
+Simulation success rate 0.74, Ave reward 40.48, Ave turns 18.64, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 135 / 500, Success rate: 41 / 135 Avg reward: -17.22 Avg turns: 29.33
+Simulation success rate 0.58, Ave reward 21.62, Ave turns 17.96, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 136 / 500, Success rate: 41 / 136 Avg reward: -17.47 Avg turns: 29.29
+Simulation success rate 0.64, Ave reward 27.0, Ave turns 21.6, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 137 / 500, Success rate: 42 / 137 Avg reward: -16.81 Avg turns: 29.20
+Simulation success rate 0.58, Ave reward 18.16, Ave turns 24.88, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 138 / 500, Success rate: 43 / 138 Avg reward: -16.18 Avg turns: 29.14
+Simulation success rate 0.78, Ave reward 46.88, Ave turns 15.44, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 139 / 500, Success rate: 44 / 139 Avg reward: -15.52 Avg turns: 29.01
+Simulation success rate 0.76, Ave reward 42.56, Ave turns 19.28, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 140 / 500, Success rate: 45 / 140 Avg reward: -14.89 Avg turns: 28.91
+Simulation success rate 0.64, Ave reward 29.22, Ave turns 17.16, Best success rate 0.86
+cur bellman err 226.1878, experience replay pool 3021, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0599, training replay pool 3021
+---------------------------------------------------------------------------------------------------- 
+ Progress: 141 / 500, Success rate: 46 / 141 Avg reward: -14.25 Avg turns: 28.79
+Simulation success rate 0.68, Ave reward 35.02, Ave turns 15.16, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 142 / 500, Success rate: 46 / 142 Avg reward: -14.57 Avg turns: 28.89
+Simulation success rate 0.6, Ave reward 22.4, Ave turns 21.2, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 143 / 500, Success rate: 47 / 143 Avg reward: -13.96 Avg turns: 28.80
+Simulation success rate 0.62, Ave reward 24.48, Ave turns 21.84, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 144 / 500, Success rate: 48 / 144 Avg reward: -13.35 Avg turns: 28.71
+Simulation success rate 0.72, Ave reward 37.8, Ave turns 19.2, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 145 / 500, Success rate: 49 / 145 Avg reward: -12.76 Avg turns: 28.62
+Simulation success rate 0.66, Ave reward 31.24, Ave turns 17.92, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 146 / 500, Success rate: 49 / 146 Avg reward: -13.08 Avg turns: 28.71
+Simulation success rate 0.54, Ave reward 13.6, Ave turns 24.4, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 147 / 500, Success rate: 50 / 147 Avg reward: -12.50 Avg turns: 28.63
+Simulation success rate 0.62, Ave reward 23.26, Ave turns 24.28, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 148 / 500, Success rate: 50 / 148 Avg reward: -12.82 Avg turns: 28.72
+Simulation success rate 0.68, Ave reward 32.36, Ave turns 20.48, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 149 / 500, Success rate: 51 / 149 Avg reward: -12.24 Avg turns: 28.63
+Simulation success rate 0.52, Ave reward 12.86, Ave turns 21.08, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 150 / 500, Success rate: 52 / 150 Avg reward: -11.71 Avg turns: 28.61
+Simulation success rate 0.64, Ave reward 27.72, Ave turns 20.16, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 151 / 500, Success rate: 53 / 151 Avg reward: -11.13 Avg turns: 28.50
+Simulation success rate 0.72, Ave reward 38.58, Ave turns 17.64, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 152 / 500, Success rate: 54 / 152 Avg reward: -10.58 Avg turns: 28.42
+Simulation success rate 0.6, Ave reward 22.66, Ave turns 20.68, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 153 / 500, Success rate: 54 / 153 Avg reward: -10.82 Avg turns: 28.34
+Simulation success rate 0.62, Ave reward 24.48, Ave turns 21.84, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 154 / 500, Success rate: 54 / 154 Avg reward: -11.14 Avg turns: 28.43
+Simulation success rate 0.7, Ave reward 34.58, Ave turns 20.84, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 155 / 500, Success rate: 55 / 155 Avg reward: -10.59 Avg turns: 28.35
+Simulation success rate 0.68, Ave reward 32.66, Ave turns 19.88, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 156 / 500, Success rate: 56 / 156 Avg reward: -10.06 Avg turns: 28.27
+Simulation success rate 0.68, Ave reward 32.08, Ave turns 21.04, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 157 / 500, Success rate: 57 / 157 Avg reward: -9.53 Avg turns: 28.19
+Simulation success rate 0.66, Ave reward 29.78, Ave turns 20.84, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 158 / 500, Success rate: 57 / 158 Avg reward: -9.77 Avg turns: 28.11
+Simulation success rate 0.72, Ave reward 35.74, Ave turns 23.32, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 159 / 500, Success rate: 58 / 159 Avg reward: -9.23 Avg turns: 28.01
+Simulation success rate 0.68, Ave reward 33.82, Ave turns 17.56, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 160 / 500, Success rate: 59 / 160 Avg reward: -8.71 Avg turns: 27.91
+Simulation success rate 0.64, Ave reward 27.82, Ave turns 19.96, Best success rate 0.86
+cur bellman err 305.6954, experience replay pool 3218, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0522, training replay pool 3218
+---------------------------------------------------------------------------------------------------- 
+ Progress: 161 / 500, Success rate: 59 / 161 Avg reward: -8.96 Avg turns: 27.88
+Simulation success rate 0.78, Ave reward 45.76, Ave turns 17.68, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 162 / 500, Success rate: 60 / 162 Avg reward: -8.44 Avg turns: 27.78
+Simulation success rate 0.8, Ave reward 49.28, Ave turns 15.44, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 163 / 500, Success rate: 61 / 163 Avg reward: -7.97 Avg turns: 27.75
+Simulation success rate 0.78, Ave reward 46.48, Ave turns 16.24, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 164 / 500, Success rate: 62 / 164 Avg reward: -7.46 Avg turns: 27.66
+Simulation success rate 0.74, Ave reward 40.62, Ave turns 18.36, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 165 / 500, Success rate: 63 / 165 Avg reward: -6.96 Avg turns: 27.56
+Simulation success rate 0.82, Ave reward 50.02, Ave turns 18.76, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 166 / 500, Success rate: 64 / 166 Avg reward: -6.48 Avg turns: 27.49
+Simulation success rate 0.64, Ave reward 28.1, Ave turns 19.4, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 167 / 500, Success rate: 65 / 167 Avg reward: -5.99 Avg turns: 27.40
+Simulation success rate 0.7, Ave reward 34.38, Ave turns 21.24, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 168 / 500, Success rate: 65 / 168 Avg reward: -6.32 Avg turns: 27.49
+Simulation success rate 0.56, Ave reward 17.82, Ave turns 20.76, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 169 / 500, Success rate: 66 / 169 Avg reward: -5.83 Avg turns: 27.40
+Simulation success rate 0.66, Ave reward 31.68, Ave turns 17.04, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 170 / 500, Success rate: 67 / 170 Avg reward: -5.36 Avg turns: 27.31
+Simulation success rate 0.62, Ave reward 27.18, Ave turns 16.44, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 171 / 500, Success rate: 67 / 171 Avg reward: -5.61 Avg turns: 27.25
+Simulation success rate 0.64, Ave reward 29.26, Ave turns 17.08, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 172 / 500, Success rate: 67 / 172 Avg reward: -5.84 Avg turns: 27.16
+Simulation success rate 0.7, Ave reward 36.66, Ave turns 16.68, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 173 / 500, Success rate: 67 / 173 Avg reward: -6.06 Avg turns: 27.08
+Simulation success rate 0.82, Ave reward 50.8, Ave turns 17.2, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 174 / 500, Success rate: 68 / 174 Avg reward: -5.60 Avg turns: 26.99
+Simulation success rate 0.6, Ave reward 24.0, Ave turns 18.0, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 175 / 500, Success rate: 69 / 175 Avg reward: -5.14 Avg turns: 26.90
+Simulation success rate 0.72, Ave reward 39.4, Ave turns 16.0, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 176 / 500, Success rate: 69 / 176 Avg reward: -5.39 Avg turns: 26.88
+Simulation success rate 0.78, Ave reward 45.6, Ave turns 18.0, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 177 / 500, Success rate: 69 / 177 Avg reward: -5.62 Avg turns: 26.79
+Simulation success rate 0.78, Ave reward 46.08, Ave turns 17.04, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 178 / 500, Success rate: 70 / 178 Avg reward: -5.19 Avg turns: 26.76
+Simulation success rate 0.66, Ave reward 28.38, Ave turns 23.64, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 179 / 500, Success rate: 71 / 179 Avg reward: -4.74 Avg turns: 26.68
+Simulation success rate 0.7, Ave reward 35.7, Ave turns 18.6, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 180 / 500, Success rate: 72 / 180 Avg reward: -4.30 Avg turns: 26.60
+Simulation success rate 0.68, Ave reward 34.5, Ave turns 16.2, Best success rate 0.86
+cur bellman err 338.2193, experience replay pool 3416, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0524, training replay pool 3416
+---------------------------------------------------------------------------------------------------- 
+ Progress: 181 / 500, Success rate: 73 / 181 Avg reward: -3.87 Avg turns: 26.54
+Simulation success rate 0.76, Ave reward 42.58, Ave turns 19.24, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 182 / 500, Success rate: 73 / 182 Avg reward: -4.18 Avg turns: 26.62
+Simulation success rate 0.78, Ave reward 46.34, Ave turns 16.52, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 183 / 500, Success rate: 74 / 183 Avg reward: -3.75 Avg turns: 26.55
+Simulation success rate 0.64, Ave reward 27.72, Ave turns 20.16, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 184 / 500, Success rate: 75 / 184 Avg reward: -3.32 Avg turns: 26.47
+Simulation success rate 0.56, Ave reward 20.56, Ave turns 15.28, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 185 / 500, Success rate: 76 / 185 Avg reward: -2.90 Avg turns: 26.39
+Simulation success rate 0.54, Ave reward 15.86, Ave turns 19.88, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 186 / 500, Success rate: 77 / 186 Avg reward: -2.48 Avg turns: 26.31
+Simulation success rate 0.46, Ave reward 3.62, Ave turns 25.16, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 187 / 500, Success rate: 77 / 187 Avg reward: -2.79 Avg turns: 26.40
+Simulation success rate 0.44, Ave reward 1.62, Ave turns 24.36, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 188 / 500, Success rate: 77 / 188 Avg reward: -3.09 Avg turns: 26.48
+Simulation success rate 0.68, Ave reward 32.52, Ave turns 20.16, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 189 / 500, Success rate: 77 / 189 Avg reward: -3.39 Avg turns: 26.56
+Simulation success rate 0.66, Ave reward 28.06, Ave turns 24.28, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 190 / 500, Success rate: 77 / 190 Avg reward: -3.62 Avg turns: 26.51
+Simulation success rate 0.62, Ave reward 23.56, Ave turns 23.68, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 191 / 500, Success rate: 78 / 191 Avg reward: -3.21 Avg turns: 26.43
+Simulation success rate 0.62, Ave reward 26.76, Ave turns 17.28, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 192 / 500, Success rate: 79 / 192 Avg reward: -2.82 Avg turns: 26.40
+Simulation success rate 0.68, Ave reward 33.86, Ave turns 17.48, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 193 / 500, Success rate: 79 / 193 Avg reward: -3.11 Avg turns: 26.47
+Simulation success rate 0.52, Ave reward 9.0, Ave turns 28.8, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 194 / 500, Success rate: 80 / 194 Avg reward: -2.71 Avg turns: 26.39
+Simulation success rate 0.68, Ave reward 34.12, Ave turns 16.96, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 195 / 500, Success rate: 81 / 195 Avg reward: -2.34 Avg turns: 26.37
+Simulation success rate 0.74, Ave reward 39.9, Ave turns 19.8, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 196 / 500, Success rate: 82 / 196 Avg reward: -1.96 Avg turns: 26.33
+Simulation success rate 0.68, Ave reward 33.16, Ave turns 18.88, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 197 / 500, Success rate: 82 / 197 Avg reward: -2.19 Avg turns: 26.27
+Simulation success rate 0.64, Ave reward 27.2, Ave turns 21.2, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 198 / 500, Success rate: 83 / 198 Avg reward: -1.81 Avg turns: 26.22
+Simulation success rate 0.8, Ave reward 47.02, Ave turns 19.96, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 199 / 500, Success rate: 83 / 199 Avg reward: -2.10 Avg turns: 26.30
+Simulation success rate 0.64, Ave reward 27.18, Ave turns 21.24, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 200 / 500, Success rate: 84 / 200 Avg reward: -1.71 Avg turns: 26.22
+Simulation success rate 0.7, Ave reward 35.64, Ave turns 18.72, Best success rate 0.86
+cur bellman err 323.6824, experience replay pool 3616, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0542, training replay pool 3616
+saved model in ./deep_dialog/checkpoints/runk40/agt_6_111_200_0.86000.pkl
+saved model in ./deep_dialog/checkpoints/runk40/agt_6_performance_records.json
+---------------------------------------------------------------------------------------------------- 
+ Progress: 201 / 500, Success rate: 84 / 201 Avg reward: -2.00 Avg turns: 26.30
+Simulation success rate 0.72, Ave reward 39.72, Ave turns 15.36, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 202 / 500, Success rate: 85 / 202 Avg reward: -1.61 Avg turns: 26.22
+Simulation success rate 0.6, Ave reward 23.46, Ave turns 19.08, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 203 / 500, Success rate: 86 / 203 Avg reward: -1.26 Avg turns: 26.20
+Simulation success rate 0.72, Ave reward 37.68, Ave turns 19.44, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 204 / 500, Success rate: 86 / 204 Avg reward: -1.47 Avg turns: 26.12
+Simulation success rate 0.78, Ave reward 46.42, Ave turns 16.36, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 205 / 500, Success rate: 87 / 205 Avg reward: -1.13 Avg turns: 26.11
+Simulation success rate 0.82, Ave reward 51.26, Ave turns 16.28, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 206 / 500, Success rate: 88 / 206 Avg reward: -0.77 Avg turns: 26.07
+Simulation success rate 0.76, Ave reward 43.3, Ave turns 17.8, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 207 / 500, Success rate: 89 / 207 Avg reward: -0.40 Avg turns: 25.99
+Simulation success rate 0.56, Ave reward 18.04, Ave turns 20.32, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 208 / 500, Success rate: 89 / 208 Avg reward: -0.65 Avg turns: 25.99
+Simulation success rate 0.66, Ave reward 31.16, Ave turns 18.08, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 209 / 500, Success rate: 89 / 209 Avg reward: -0.93 Avg turns: 26.07
+Simulation success rate 0.6, Ave reward 23.7, Ave turns 18.6, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 210 / 500, Success rate: 90 / 210 Avg reward: -0.60 Avg turns: 26.06
+Simulation success rate 0.66, Ave reward 29.9, Ave turns 20.6, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 211 / 500, Success rate: 90 / 211 Avg reward: -0.88 Avg turns: 26.13
+Simulation success rate 0.7, Ave reward 36.86, Ave turns 16.28, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 212 / 500, Success rate: 90 / 212 Avg reward: -1.08 Avg turns: 26.06
+Simulation success rate 0.72, Ave reward 38.9, Ave turns 17.0, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 213 / 500, Success rate: 91 / 213 Avg reward: -0.72 Avg turns: 25.98
+Simulation success rate 0.46, Ave reward 4.66, Ave turns 23.08, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 214 / 500, Success rate: 91 / 214 Avg reward: -1.00 Avg turns: 26.06
+Simulation success rate 0.6, Ave reward 23.04, Ave turns 19.92, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 215 / 500, Success rate: 92 / 215 Avg reward: -0.64 Avg turns: 25.98
+Simulation success rate 0.68, Ave reward 33.84, Ave turns 17.52, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 216 / 500, Success rate: 92 / 216 Avg reward: -0.84 Avg turns: 25.91
+Simulation success rate 0.64, Ave reward 28.06, Ave turns 19.48, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 217 / 500, Success rate: 93 / 217 Avg reward: -0.53 Avg turns: 25.91
+Simulation success rate 0.76, Ave reward 43.06, Ave turns 18.28, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 218 / 500, Success rate: 94 / 218 Avg reward: -0.18 Avg turns: 25.84
+Simulation success rate 0.74, Ave reward 41.48, Ave turns 16.64, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 219 / 500, Success rate: 95 / 219 Avg reward: 0.16 Avg turns: 25.78
+Simulation success rate 0.66, Ave reward 32.02, Ave turns 16.36, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 220 / 500, Success rate: 96 / 220 Avg reward: 0.50 Avg turns: 25.72
+Simulation success rate 0.64, Ave reward 28.5, Ave turns 18.6, Best success rate 0.86
+cur bellman err 295.7830, experience replay pool 3814, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0545, training replay pool 3814
+---------------------------------------------------------------------------------------------------- 
+ Progress: 221 / 500, Success rate: 97 / 221 Avg reward: 0.82 Avg turns: 25.70
+Simulation success rate 0.74, Ave reward 42.04, Ave turns 15.52, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 222 / 500, Success rate: 97 / 222 Avg reward: 0.61 Avg turns: 25.64
+Simulation success rate 0.7, Ave reward 36.06, Ave turns 17.88, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 223 / 500, Success rate: 98 / 223 Avg reward: 0.94 Avg turns: 25.59
+Simulation success rate 0.74, Ave reward 39.42, Ave turns 20.76, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 224 / 500, Success rate: 98 / 224 Avg reward: 0.74 Avg turns: 25.53
+Simulation success rate 0.74, Ave reward 41.0, Ave turns 17.6, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 225 / 500, Success rate: 99 / 225 Avg reward: 1.07 Avg turns: 25.47
+Simulation success rate 0.74, Ave reward 41.68, Ave turns 16.24, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 226 / 500, Success rate: 100 / 226 Avg reward: 1.39 Avg turns: 25.41
+Simulation success rate 0.6, Ave reward 23.46, Ave turns 19.08, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 227 / 500, Success rate: 100 / 227 Avg reward: 1.17 Avg turns: 25.39
+Simulation success rate 0.76, Ave reward 41.38, Ave turns 21.64, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 228 / 500, Success rate: 100 / 228 Avg reward: 0.96 Avg turns: 25.35
+Simulation success rate 0.74, Ave reward 41.22, Ave turns 17.16, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 229 / 500, Success rate: 101 / 229 Avg reward: 1.28 Avg turns: 25.29
+Simulation success rate 0.72, Ave reward 39.36, Ave turns 16.08, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 230 / 500, Success rate: 102 / 230 Avg reward: 1.60 Avg turns: 25.23
+Simulation success rate 0.72, Ave reward 37.8, Ave turns 19.2, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 231 / 500, Success rate: 103 / 231 Avg reward: 1.91 Avg turns: 25.19
+Simulation success rate 0.56, Ave reward 17.8, Ave turns 20.8, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 232 / 500, Success rate: 104 / 232 Avg reward: 2.22 Avg turns: 25.16
+Simulation success rate 0.7, Ave reward 35.1, Ave turns 19.8, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 233 / 500, Success rate: 104 / 233 Avg reward: 2.00 Avg turns: 25.12
+Simulation success rate 0.8, Ave reward 43.6, Ave turns 26.8, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 234 / 500, Success rate: 105 / 234 Avg reward: 2.31 Avg turns: 25.08
+Simulation success rate 0.58, Ave reward 18.2, Ave turns 24.8, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 235 / 500, Success rate: 106 / 235 Avg reward: 2.61 Avg turns: 25.04
+Simulation success rate 0.76, Ave reward 42.04, Ave turns 20.32, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 236 / 500, Success rate: 107 / 236 Avg reward: 2.91 Avg turns: 25.00
+Simulation success rate 0.72, Ave reward 38.44, Ave turns 17.92, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 237 / 500, Success rate: 108 / 237 Avg reward: 3.20 Avg turns: 24.96
+Simulation success rate 0.66, Ave reward 29.94, Ave turns 20.52, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 238 / 500, Success rate: 109 / 238 Avg reward: 3.50 Avg turns: 24.92
+Simulation success rate 0.6, Ave reward 22.96, Ave turns 20.08, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 239 / 500, Success rate: 110 / 239 Avg reward: 3.79 Avg turns: 24.89
+Simulation success rate 0.68, Ave reward 33.4, Ave turns 18.4, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 240 / 500, Success rate: 111 / 240 Avg reward: 4.08 Avg turns: 24.85
+Simulation success rate 0.8, Ave reward 48.8, Ave turns 16.4, Best success rate 0.86
+cur bellman err 289.4822, experience replay pool 4008, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0512, training replay pool 4008
+---------------------------------------------------------------------------------------------------- 
+ Progress: 241 / 500, Success rate: 111 / 241 Avg reward: 3.86 Avg turns: 24.81
+Simulation success rate 0.72, Ave reward 39.72, Ave turns 15.36, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 242 / 500, Success rate: 112 / 242 Avg reward: 4.15 Avg turns: 24.78
+Simulation success rate 0.5, Ave reward 8.16, Ave turns 25.68, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 243 / 500, Success rate: 113 / 243 Avg reward: 4.44 Avg turns: 24.72
+Simulation success rate 0.72, Ave reward 37.54, Ave turns 19.72, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 244 / 500, Success rate: 114 / 244 Avg reward: 4.72 Avg turns: 24.69
+Simulation success rate 0.78, Ave reward 46.1, Ave turns 17.0, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 245 / 500, Success rate: 115 / 245 Avg reward: 5.01 Avg turns: 24.63
+Simulation success rate 0.84, Ave reward 54.84, Ave turns 13.92, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 246 / 500, Success rate: 116 / 246 Avg reward: 5.29 Avg turns: 24.59
+Simulation success rate 0.86, Ave reward 56.7, Ave turns 15.0, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 247 / 500, Success rate: 117 / 247 Avg reward: 5.55 Avg turns: 24.58
+Simulation success rate 0.82, Ave reward 51.8, Ave turns 15.2, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 248 / 500, Success rate: 118 / 248 Avg reward: 5.81 Avg turns: 24.56
+Simulation success rate 0.72, Ave reward 39.9, Ave turns 15.0, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 249 / 500, Success rate: 118 / 249 Avg reward: 5.61 Avg turns: 24.51
+Simulation success rate 0.86, Ave reward 56.38, Ave turns 15.64, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 250 / 500, Success rate: 119 / 250 Avg reward: 5.88 Avg turns: 24.47
+Simulation success rate 0.72, Ave reward 38.58, Ave turns 17.64, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 251 / 500, Success rate: 120 / 251 Avg reward: 6.16 Avg turns: 24.41
+Simulation success rate 0.7, Ave reward 37.34, Ave turns 15.32, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 252 / 500, Success rate: 121 / 252 Avg reward: 6.44 Avg turns: 24.36
+Simulation success rate 0.66, Ave reward 32.08, Ave turns 16.24, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 253 / 500, Success rate: 121 / 253 Avg reward: 6.18 Avg turns: 24.43
+Simulation success rate 0.84, Ave reward 53.66, Ave turns 16.28, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 254 / 500, Success rate: 122 / 254 Avg reward: 6.45 Avg turns: 24.37
+Simulation success rate 0.78, Ave reward 45.46, Ave turns 18.28, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 255 / 500, Success rate: 122 / 255 Avg reward: 6.25 Avg turns: 24.31
+Simulation success rate 0.56, Ave reward 16.26, Ave turns 23.88, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 256 / 500, Success rate: 122 / 256 Avg reward: 6.02 Avg turns: 24.34
+Simulation success rate 0.54, Ave reward 14.0, Ave turns 23.6, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 257 / 500, Success rate: 122 / 257 Avg reward: 5.79 Avg turns: 24.35
+Simulation success rate 0.7, Ave reward 34.68, Ave turns 20.64, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 258 / 500, Success rate: 123 / 258 Avg reward: 6.05 Avg turns: 24.33
+Simulation success rate 0.72, Ave reward 36.78, Ave turns 21.24, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 259 / 500, Success rate: 124 / 259 Avg reward: 6.31 Avg turns: 24.28
+Simulation success rate 0.78, Ave reward 45.66, Ave turns 17.88, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 260 / 500, Success rate: 125 / 260 Avg reward: 6.58 Avg turns: 24.22
+Simulation success rate 0.8, Ave reward 48.58, Ave turns 16.84, Best success rate 0.86
+cur bellman err 291.0750, experience replay pool 4193, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0478, training replay pool 4193
+---------------------------------------------------------------------------------------------------- 
+ Progress: 261 / 500, Success rate: 126 / 261 Avg reward: 6.84 Avg turns: 24.18
+Simulation success rate 0.7, Ave reward 36.94, Ave turns 16.12, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 262 / 500, Success rate: 126 / 262 Avg reward: 6.64 Avg turns: 24.15
+Simulation success rate 0.68, Ave reward 34.62, Ave turns 15.96, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 263 / 500, Success rate: 127 / 263 Avg reward: 6.90 Avg turns: 24.10
+Simulation success rate 0.76, Ave reward 44.4, Ave turns 15.6, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 264 / 500, Success rate: 127 / 264 Avg reward: 6.67 Avg turns: 24.11
+Simulation success rate 0.76, Ave reward 44.02, Ave turns 16.36, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 265 / 500, Success rate: 128 / 265 Avg reward: 6.94 Avg turns: 24.05
+Simulation success rate 0.74, Ave reward 41.44, Ave turns 16.72, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 266 / 500, Success rate: 128 / 266 Avg reward: 6.68 Avg turns: 24.12
+Simulation success rate 0.78, Ave reward 46.44, Ave turns 16.32, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 267 / 500, Success rate: 129 / 267 Avg reward: 6.93 Avg turns: 24.09
+Simulation success rate 0.74, Ave reward 42.46, Ave turns 14.68, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 268 / 500, Success rate: 130 / 268 Avg reward: 7.19 Avg turns: 24.04
+Simulation success rate 0.66, Ave reward 30.24, Ave turns 19.92, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 269 / 500, Success rate: 131 / 269 Avg reward: 7.42 Avg turns: 24.03
+Simulation success rate 0.72, Ave reward 39.78, Ave turns 15.24, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 270 / 500, Success rate: 132 / 270 Avg reward: 7.68 Avg turns: 23.98
+Simulation success rate 0.68, Ave reward 35.12, Ave turns 14.96, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 271 / 500, Success rate: 132 / 271 Avg reward: 7.48 Avg turns: 23.94
+Simulation success rate 0.8, Ave reward 49.56, Ave turns 14.88, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 272 / 500, Success rate: 133 / 272 Avg reward: 7.72 Avg turns: 23.92
+Simulation success rate 0.7, Ave reward 37.04, Ave turns 15.92, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 273 / 500, Success rate: 134 / 273 Avg reward: 7.97 Avg turns: 23.87
+Simulation success rate 0.7, Ave reward 36.34, Ave turns 17.32, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 274 / 500, Success rate: 135 / 274 Avg reward: 8.20 Avg turns: 23.85
+Simulation success rate 0.64, Ave reward 29.34, Ave turns 16.92, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 275 / 500, Success rate: 136 / 275 Avg reward: 8.44 Avg turns: 23.80
+Simulation success rate 0.7, Ave reward 36.04, Ave turns 17.92, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 276 / 500, Success rate: 136 / 276 Avg reward: 8.24 Avg turns: 23.78
+Simulation success rate 0.82, Ave reward 52.06, Ave turns 14.68, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 277 / 500, Success rate: 137 / 277 Avg reward: 8.46 Avg turns: 23.78
+Simulation success rate 0.7, Ave reward 37.92, Ave turns 14.16, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 278 / 500, Success rate: 138 / 278 Avg reward: 8.70 Avg turns: 23.73
+Simulation success rate 0.74, Ave reward 41.3, Ave turns 17.0, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 279 / 500, Success rate: 138 / 279 Avg reward: 8.49 Avg turns: 23.73
+Simulation success rate 0.76, Ave reward 44.06, Ave turns 16.28, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 280 / 500, Success rate: 139 / 280 Avg reward: 8.73 Avg turns: 23.69
+Simulation success rate 0.84, Ave reward 54.34, Ave turns 14.92, Best success rate 0.86
+cur bellman err 335.3967, experience replay pool 4381, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0484, training replay pool 4381
+---------------------------------------------------------------------------------------------------- 
+ Progress: 281 / 500, Success rate: 140 / 281 Avg reward: 8.95 Avg turns: 23.67
+Simulation success rate 0.74, Ave reward 41.68, Ave turns 16.24, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 282 / 500, Success rate: 141 / 282 Avg reward: 9.19 Avg turns: 23.62
+Simulation success rate 0.82, Ave reward 52.42, Ave turns 13.96, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 283 / 500, Success rate: 142 / 283 Avg reward: 9.41 Avg turns: 23.61
+Simulation success rate 0.74, Ave reward 41.1, Ave turns 17.4, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 284 / 500, Success rate: 143 / 284 Avg reward: 9.59 Avg turns: 23.67
+Simulation success rate 0.76, Ave reward 43.94, Ave turns 16.52, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 285 / 500, Success rate: 143 / 285 Avg reward: 9.37 Avg turns: 23.68
+Simulation success rate 0.64, Ave reward 28.4, Ave turns 18.8, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 286 / 500, Success rate: 143 / 286 Avg reward: 9.13 Avg turns: 23.73
+Simulation success rate 0.74, Ave reward 40.96, Ave turns 17.68, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 287 / 500, Success rate: 144 / 287 Avg reward: 9.37 Avg turns: 23.69
+Simulation success rate 0.8, Ave reward 48.66, Ave turns 16.68, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 288 / 500, Success rate: 144 / 288 Avg reward: 9.16 Avg turns: 23.68
+Simulation success rate 0.8, Ave reward 48.28, Ave turns 17.44, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 289 / 500, Success rate: 145 / 289 Avg reward: 9.38 Avg turns: 23.65
+Simulation success rate 0.82, Ave reward 52.04, Ave turns 14.72, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 290 / 500, Success rate: 146 / 290 Avg reward: 9.61 Avg turns: 23.61
+Simulation success rate 0.76, Ave reward 43.9, Ave turns 16.6, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 291 / 500, Success rate: 147 / 291 Avg reward: 9.84 Avg turns: 23.56
+Simulation success rate 0.76, Ave reward 45.64, Ave turns 13.12, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 292 / 500, Success rate: 148 / 292 Avg reward: 10.07 Avg turns: 23.51
+Simulation success rate 0.8, Ave reward 49.66, Ave turns 14.68, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 293 / 500, Success rate: 149 / 293 Avg reward: 10.28 Avg turns: 23.49
+Simulation success rate 0.82, Ave reward 52.02, Ave turns 14.76, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 294 / 500, Success rate: 149 / 294 Avg reward: 10.10 Avg turns: 23.44
+Simulation success rate 0.7, Ave reward 37.48, Ave turns 15.04, Best success rate 0.86
+---------------------------------------------------------------------------------------------------- 
+ Progress: 295 / 500, Success rate: 150 / 295 Avg reward: 10.31 Avg turns: 23.42
+Simulation success rate 0.88, Ave reward 59.78, Ave turns 13.64, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 296 / 500, Success rate: 151 / 296 Avg reward: 10.53 Avg turns: 23.37
+Simulation success rate 0.58, Ave reward 21.5, Ave turns 18.2, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 297 / 500, Success rate: 151 / 297 Avg reward: 10.30 Avg turns: 23.43
+Simulation success rate 0.78, Ave reward 46.28, Ave turns 16.64, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 298 / 500, Success rate: 152 / 298 Avg reward: 10.49 Avg turns: 23.43
+Simulation success rate 0.66, Ave reward 30.42, Ave turns 19.56, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 299 / 500, Success rate: 153 / 299 Avg reward: 10.71 Avg turns: 23.38
+Simulation success rate 0.84, Ave reward 53.18, Ave turns 17.24, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 300 / 500, Success rate: 154 / 300 Avg reward: 10.91 Avg turns: 23.39
+Simulation success rate 0.66, Ave reward 30.32, Ave turns 19.76, Best success rate 0.88
+cur bellman err 330.3389, experience replay pool 4541, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0545, training replay pool 4541
+saved model in ./deep_dialog/checkpoints/runk40/agt_6_294_300_0.88000.pkl
+saved model in ./deep_dialog/checkpoints/runk40/agt_6_performance_records.json
+---------------------------------------------------------------------------------------------------- 
+ Progress: 301 / 500, Success rate: 155 / 301 Avg reward: 11.12 Avg turns: 23.34
+Simulation success rate 0.56, Ave reward 17.58, Ave turns 21.24, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 302 / 500, Success rate: 155 / 302 Avg reward: 10.93 Avg turns: 23.31
+Simulation success rate 0.54, Ave reward 17.14, Ave turns 17.32, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 303 / 500, Success rate: 155 / 303 Avg reward: 10.70 Avg turns: 23.37
+Simulation success rate 0.4, Ave reward -0.4, Ave turns 18.8, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 304 / 500, Success rate: 156 / 304 Avg reward: 10.91 Avg turns: 23.33
+Simulation success rate 0.78, Ave reward 44.44, Ave turns 20.32, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 305 / 500, Success rate: 157 / 305 Avg reward: 11.13 Avg turns: 23.29
+Simulation success rate 0.62, Ave reward 27.22, Ave turns 16.36, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 306 / 500, Success rate: 158 / 306 Avg reward: 11.29 Avg turns: 23.34
+Simulation success rate 0.62, Ave reward 23.5, Ave turns 23.8, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 307 / 500, Success rate: 158 / 307 Avg reward: 11.11 Avg turns: 23.30
+Simulation success rate 0.72, Ave reward 37.92, Ave turns 18.96, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 308 / 500, Success rate: 158 / 308 Avg reward: 10.93 Avg turns: 23.26
+Simulation success rate 0.72, Ave reward 39.18, Ave turns 16.44, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 309 / 500, Success rate: 159 / 309 Avg reward: 11.14 Avg turns: 23.22
+Simulation success rate 0.68, Ave reward 33.6, Ave turns 18.0, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 310 / 500, Success rate: 160 / 310 Avg reward: 11.35 Avg turns: 23.17
+Simulation success rate 0.76, Ave reward 44.62, Ave turns 15.16, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 311 / 500, Success rate: 161 / 311 Avg reward: 11.56 Avg turns: 23.13
+Simulation success rate 0.76, Ave reward 44.28, Ave turns 15.84, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 312 / 500, Success rate: 162 / 312 Avg reward: 11.76 Avg turns: 23.09
+Simulation success rate 0.74, Ave reward 43.36, Ave turns 12.88, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 313 / 500, Success rate: 163 / 313 Avg reward: 11.97 Avg turns: 23.05
+Simulation success rate 0.66, Ave reward 33.08, Ave turns 14.24, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 314 / 500, Success rate: 163 / 314 Avg reward: 11.79 Avg turns: 23.01
+Simulation success rate 0.68, Ave reward 34.28, Ave turns 16.64, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 315 / 500, Success rate: 163 / 315 Avg reward: 11.61 Avg turns: 22.97
+Simulation success rate 0.66, Ave reward 33.6, Ave turns 13.2, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 316 / 500, Success rate: 163 / 316 Avg reward: 11.43 Avg turns: 22.94
+Simulation success rate 0.66, Ave reward 30.96, Ave turns 18.48, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 317 / 500, Success rate: 163 / 317 Avg reward: 11.26 Avg turns: 22.90
+Simulation success rate 0.78, Ave reward 46.76, Ave turns 15.68, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 318 / 500, Success rate: 164 / 318 Avg reward: 11.46 Avg turns: 22.86
+Simulation success rate 0.84, Ave reward 54.48, Ave turns 14.64, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 319 / 500, Success rate: 165 / 319 Avg reward: 11.66 Avg turns: 22.82
+Simulation success rate 0.74, Ave reward 41.94, Ave turns 15.72, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 320 / 500, Success rate: 166 / 320 Avg reward: 11.86 Avg turns: 22.78
+Simulation success rate 0.74, Ave reward 42.54, Ave turns 14.52, Best success rate 0.88
+cur bellman err 342.6727, experience replay pool 4662, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0617, training replay pool 4662
+---------------------------------------------------------------------------------------------------- 
+ Progress: 321 / 500, Success rate: 167 / 321 Avg reward: 12.05 Avg turns: 22.76
+Simulation success rate 0.72, Ave reward 39.72, Ave turns 15.36, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 322 / 500, Success rate: 167 / 322 Avg reward: 11.87 Avg turns: 22.74
+Simulation success rate 0.84, Ave reward 54.16, Ave turns 15.28, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 323 / 500, Success rate: 168 / 323 Avg reward: 12.06 Avg turns: 22.71
+Simulation success rate 0.6, Ave reward 23.04, Ave turns 19.92, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 324 / 500, Success rate: 168 / 324 Avg reward: 11.84 Avg turns: 22.76
+Simulation success rate 0.8, Ave reward 47.68, Ave turns 18.64, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 325 / 500, Success rate: 168 / 325 Avg reward: 11.62 Avg turns: 22.82
+Simulation success rate 0.78, Ave reward 42.04, Ave turns 25.12, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 326 / 500, Success rate: 169 / 326 Avg reward: 11.81 Avg turns: 22.80
+Simulation success rate 0.74, Ave reward 39.44, Ave turns 20.72, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 327 / 500, Success rate: 170 / 327 Avg reward: 12.01 Avg turns: 22.76
+Simulation success rate 0.68, Ave reward 33.62, Ave turns 17.96, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 328 / 500, Success rate: 171 / 328 Avg reward: 12.18 Avg turns: 22.77
+Simulation success rate 0.68, Ave reward 28.08, Ave turns 29.04, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 329 / 500, Success rate: 171 / 329 Avg reward: 11.96 Avg turns: 22.83
+Simulation success rate 0.5, Ave reward 9.84, Ave turns 22.32, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 330 / 500, Success rate: 171 / 330 Avg reward: 11.77 Avg turns: 22.83
+Simulation success rate 0.7, Ave reward 34.68, Ave turns 20.64, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 331 / 500, Success rate: 171 / 331 Avg reward: 11.60 Avg turns: 22.80
+Simulation success rate 0.64, Ave reward 24.7, Ave turns 26.2, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 332 / 500, Success rate: 172 / 332 Avg reward: 11.76 Avg turns: 22.83
+Simulation success rate 0.54, Ave reward 11.66, Ave turns 28.28, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 333 / 500, Success rate: 172 / 333 Avg reward: 11.56 Avg turns: 22.83
+Simulation success rate 0.72, Ave reward 37.68, Ave turns 19.44, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 334 / 500, Success rate: 173 / 334 Avg reward: 11.76 Avg turns: 22.80
+Simulation success rate 0.6, Ave reward 21.46, Ave turns 23.08, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 335 / 500, Success rate: 173 / 335 Avg reward: 11.54 Avg turns: 22.85
+Simulation success rate 0.64, Ave reward 26.7, Ave turns 22.2, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 336 / 500, Success rate: 174 / 336 Avg reward: 11.74 Avg turns: 22.82
+Simulation success rate 0.78, Ave reward 45.4, Ave turns 18.4, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 337 / 500, Success rate: 175 / 337 Avg reward: 11.92 Avg turns: 22.78
+Simulation success rate 0.74, Ave reward 41.78, Ave turns 16.04, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 338 / 500, Success rate: 175 / 338 Avg reward: 11.75 Avg turns: 22.76
+Simulation success rate 0.74, Ave reward 39.34, Ave turns 20.92, Best success rate 0.88
+---------------------------------------------------------------------------------------------------- 
+ Progress: 339 / 500, Success rate: 176 / 339 Avg reward: 11.92 Avg turns: 22.76
+Simulation success rate 0.94, Ave reward 67.32, Ave turns 12.96, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 340 / 500, Success rate: 177 / 340 Avg reward: 12.11 Avg turns: 22.73
+Simulation success rate 0.68, Ave reward 35.74, Ave turns 13.72, Best success rate 0.94
+cur bellman err 307.5866, experience replay pool 4889, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0632, training replay pool 4889
+---------------------------------------------------------------------------------------------------- 
+ Progress: 341 / 500, Success rate: 178 / 341 Avg reward: 12.29 Avg turns: 22.70
+Simulation success rate 0.78, Ave reward 46.34, Ave turns 16.52, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 342 / 500, Success rate: 179 / 342 Avg reward: 12.48 Avg turns: 22.66
+Simulation success rate 0.84, Ave reward 54.72, Ave turns 14.16, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 343 / 500, Success rate: 179 / 343 Avg reward: 12.30 Avg turns: 22.65
+Simulation success rate 0.8, Ave reward 48.96, Ave turns 16.08, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 344 / 500, Success rate: 180 / 344 Avg reward: 12.44 Avg turns: 22.70
+Simulation success rate 0.8, Ave reward 46.54, Ave turns 20.92, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 345 / 500, Success rate: 181 / 345 Avg reward: 12.62 Avg turns: 22.67
+Simulation success rate 0.74, Ave reward 42.02, Ave turns 15.56, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 346 / 500, Success rate: 181 / 346 Avg reward: 12.46 Avg turns: 22.64
+Simulation success rate 0.8, Ave reward 48.64, Ave turns 16.72, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 347 / 500, Success rate: 182 / 347 Avg reward: 12.64 Avg turns: 22.61
+Simulation success rate 0.72, Ave reward 39.1, Ave turns 16.6, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 348 / 500, Success rate: 183 / 348 Avg reward: 12.81 Avg turns: 22.59
+Simulation success rate 0.8, Ave reward 47.98, Ave turns 18.04, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 349 / 500, Success rate: 184 / 349 Avg reward: 12.99 Avg turns: 22.55
+Simulation success rate 0.78, Ave reward 47.66, Ave turns 13.88, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 350 / 500, Success rate: 185 / 350 Avg reward: 13.17 Avg turns: 22.51
+Simulation success rate 0.64, Ave reward 28.62, Ave turns 18.36, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 351 / 500, Success rate: 186 / 351 Avg reward: 13.34 Avg turns: 22.50
+Simulation success rate 0.8, Ave reward 47.48, Ave turns 19.04, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 352 / 500, Success rate: 187 / 352 Avg reward: 13.52 Avg turns: 22.47
+Simulation success rate 0.7, Ave reward 36.16, Ave turns 17.68, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 353 / 500, Success rate: 188 / 353 Avg reward: 13.66 Avg turns: 22.49
+Simulation success rate 0.64, Ave reward 26.4, Ave turns 22.8, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 354 / 500, Success rate: 189 / 354 Avg reward: 13.81 Avg turns: 22.52
+Simulation success rate 0.8, Ave reward 42.94, Ave turns 28.12, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 355 / 500, Success rate: 189 / 355 Avg reward: 13.65 Avg turns: 22.48
+Simulation success rate 0.68, Ave reward 33.12, Ave turns 18.96, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 356 / 500, Success rate: 189 / 356 Avg reward: 13.46 Avg turns: 22.49
+Simulation success rate 0.78, Ave reward 41.42, Ave turns 26.36, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 357 / 500, Success rate: 190 / 357 Avg reward: 13.62 Avg turns: 22.49
+Simulation success rate 0.74, Ave reward 40.24, Ave turns 19.12, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 358 / 500, Success rate: 191 / 358 Avg reward: 13.78 Avg turns: 22.49
+Simulation success rate 0.84, Ave reward 52.2, Ave turns 19.2, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 359 / 500, Success rate: 192 / 359 Avg reward: 13.94 Avg turns: 22.47
+Simulation success rate 0.8, Ave reward 48.22, Ave turns 17.56, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 360 / 500, Success rate: 193 / 360 Avg reward: 14.11 Avg turns: 22.44
+Simulation success rate 0.74, Ave reward 41.6, Ave turns 16.4, Best success rate 0.94
+cur bellman err 301.1912, experience replay pool 5000, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0605, training replay pool 5000
+---------------------------------------------------------------------------------------------------- 
+ Progress: 361 / 500, Success rate: 194 / 361 Avg reward: 14.28 Avg turns: 22.41
+Simulation success rate 0.52, Ave reward 14.4, Ave turns 18.0, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 362 / 500, Success rate: 195 / 362 Avg reward: 14.45 Avg turns: 22.38
+Simulation success rate 0.66, Ave reward 32.36, Ave turns 15.68, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 363 / 500, Success rate: 196 / 363 Avg reward: 14.62 Avg turns: 22.35
+Simulation success rate 0.78, Ave reward 47.82, Ave turns 13.56, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 364 / 500, Success rate: 197 / 364 Avg reward: 14.78 Avg turns: 22.33
+Simulation success rate 0.72, Ave reward 37.8, Ave turns 19.2, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 365 / 500, Success rate: 198 / 365 Avg reward: 14.94 Avg turns: 22.31
+Simulation success rate 0.8, Ave reward 48.14, Ave turns 17.72, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 366 / 500, Success rate: 199 / 366 Avg reward: 15.11 Avg turns: 22.28
+Simulation success rate 0.68, Ave reward 34.58, Ave turns 16.04, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 367 / 500, Success rate: 200 / 367 Avg reward: 15.26 Avg turns: 22.28
+Simulation success rate 0.8, Ave reward 48.72, Ave turns 16.56, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 368 / 500, Success rate: 201 / 368 Avg reward: 15.39 Avg turns: 22.30
+Simulation success rate 0.72, Ave reward 38.26, Ave turns 18.28, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 369 / 500, Success rate: 202 / 369 Avg reward: 15.56 Avg turns: 22.27
+Simulation success rate 0.8, Ave reward 49.3, Ave turns 15.4, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 370 / 500, Success rate: 203 / 370 Avg reward: 15.71 Avg turns: 22.26
+Simulation success rate 0.68, Ave reward 30.76, Ave turns 23.68, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 371 / 500, Success rate: 204 / 371 Avg reward: 15.87 Avg turns: 22.23
+Simulation success rate 0.8, Ave reward 47.5, Ave turns 19.0, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 372 / 500, Success rate: 205 / 372 Avg reward: 16.03 Avg turns: 22.20
+Simulation success rate 0.8, Ave reward 49.36, Ave turns 15.28, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 373 / 500, Success rate: 206 / 373 Avg reward: 16.19 Avg turns: 22.17
+Simulation success rate 0.72, Ave reward 39.84, Ave turns 15.12, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 374 / 500, Success rate: 207 / 374 Avg reward: 16.35 Avg turns: 22.13
+Simulation success rate 0.58, Ave reward 21.84, Ave turns 17.52, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 375 / 500, Success rate: 207 / 375 Avg reward: 16.17 Avg turns: 22.13
+Simulation success rate 0.62, Ave reward 27.46, Ave turns 15.88, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 376 / 500, Success rate: 207 / 376 Avg reward: 16.00 Avg turns: 22.13
+Simulation success rate 0.7, Ave reward 37.76, Ave turns 14.48, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 377 / 500, Success rate: 207 / 377 Avg reward: 15.83 Avg turns: 22.12
+Simulation success rate 0.64, Ave reward 29.72, Ave turns 16.16, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 378 / 500, Success rate: 208 / 378 Avg reward: 15.99 Avg turns: 22.09
+Simulation success rate 0.66, Ave reward 32.16, Ave turns 16.08, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 379 / 500, Success rate: 209 / 379 Avg reward: 16.14 Avg turns: 22.07
+Simulation success rate 0.78, Ave reward 46.1, Ave turns 17.0, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 380 / 500, Success rate: 210 / 380 Avg reward: 16.29 Avg turns: 22.06
+Simulation success rate 0.76, Ave reward 43.48, Ave turns 17.44, Best success rate 0.94
+cur bellman err 337.0490, experience replay pool 5000, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0704, training replay pool 5000
+---------------------------------------------------------------------------------------------------- 
+ Progress: 381 / 500, Success rate: 211 / 381 Avg reward: 16.43 Avg turns: 22.05
+Simulation success rate 0.58, Ave reward 20.3, Ave turns 20.6, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 382 / 500, Success rate: 212 / 382 Avg reward: 16.59 Avg turns: 22.02
+Simulation success rate 0.66, Ave reward 30.42, Ave turns 19.56, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 383 / 500, Success rate: 212 / 383 Avg reward: 16.39 Avg turns: 22.07
+Simulation success rate 0.66, Ave reward 30.28, Ave turns 19.84, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 384 / 500, Success rate: 213 / 384 Avg reward: 16.53 Avg turns: 22.06
+Simulation success rate 0.68, Ave reward 34.4, Ave turns 16.4, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 385 / 500, Success rate: 214 / 385 Avg reward: 16.69 Avg turns: 22.03
+Simulation success rate 0.66, Ave reward 29.46, Ave turns 21.48, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 386 / 500, Success rate: 215 / 386 Avg reward: 16.84 Avg turns: 21.99
+Simulation success rate 0.68, Ave reward 33.94, Ave turns 17.32, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 387 / 500, Success rate: 216 / 387 Avg reward: 16.99 Avg turns: 21.97
+Simulation success rate 0.78, Ave reward 46.12, Ave turns 16.96, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 388 / 500, Success rate: 216 / 388 Avg reward: 16.82 Avg turns: 21.96
+Simulation success rate 0.62, Ave reward 25.6, Ave turns 19.6, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 389 / 500, Success rate: 216 / 389 Avg reward: 16.66 Avg turns: 21.94
+Simulation success rate 0.68, Ave reward 31.72, Ave turns 21.76, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 390 / 500, Success rate: 217 / 390 Avg reward: 16.81 Avg turns: 21.93
+Simulation success rate 0.76, Ave reward 43.3, Ave turns 17.8, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 391 / 500, Success rate: 218 / 391 Avg reward: 16.96 Avg turns: 21.90
+Simulation success rate 0.64, Ave reward 29.9, Ave turns 15.8, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 392 / 500, Success rate: 219 / 392 Avg reward: 17.11 Avg turns: 21.87
+Simulation success rate 0.76, Ave reward 43.84, Ave turns 16.72, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 393 / 500, Success rate: 220 / 393 Avg reward: 17.25 Avg turns: 21.84
+Simulation success rate 0.7, Ave reward 34.84, Ave turns 20.32, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 394 / 500, Success rate: 221 / 394 Avg reward: 17.40 Avg turns: 21.81
+Simulation success rate 0.66, Ave reward 31.52, Ave turns 17.36, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 395 / 500, Success rate: 222 / 395 Avg reward: 17.55 Avg turns: 21.78
+Simulation success rate 0.74, Ave reward 42.0, Ave turns 15.6, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 396 / 500, Success rate: 223 / 396 Avg reward: 17.70 Avg turns: 21.75
+Simulation success rate 0.58, Ave reward 22.1, Ave turns 17.0, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 397 / 500, Success rate: 223 / 397 Avg reward: 17.53 Avg turns: 21.75
+Simulation success rate 0.74, Ave reward 38.38, Ave turns 22.84, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 398 / 500, Success rate: 224 / 398 Avg reward: 17.66 Avg turns: 21.75
+Simulation success rate 0.78, Ave reward 45.48, Ave turns 18.24, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 399 / 500, Success rate: 224 / 399 Avg reward: 17.47 Avg turns: 21.80
+Simulation success rate 0.74, Ave reward 40.04, Ave turns 19.52, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 400 / 500, Success rate: 225 / 400 Avg reward: 17.60 Avg turns: 21.80
+Simulation success rate 0.78, Ave reward 46.96, Ave turns 15.28, Best success rate 0.94
+cur bellman err 328.2278, experience replay pool 5000, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0661, training replay pool 5000
+saved model in ./deep_dialog/checkpoints/runk40/agt_6_338_400_0.94000.pkl
+saved model in ./deep_dialog/checkpoints/runk40/agt_6_performance_records.json
+---------------------------------------------------------------------------------------------------- 
+ Progress: 401 / 500, Success rate: 226 / 401 Avg reward: 17.73 Avg turns: 21.81
+Simulation success rate 0.68, Ave reward 30.56, Ave turns 24.08, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 402 / 500, Success rate: 227 / 402 Avg reward: 17.87 Avg turns: 21.78
+Simulation success rate 0.8, Ave reward 49.48, Ave turns 15.04, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 403 / 500, Success rate: 228 / 403 Avg reward: 18.01 Avg turns: 21.75
+Simulation success rate 0.66, Ave reward 31.62, Ave turns 17.16, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 404 / 500, Success rate: 229 / 404 Avg reward: 18.16 Avg turns: 21.73
+Simulation success rate 0.68, Ave reward 32.2, Ave turns 20.8, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 405 / 500, Success rate: 229 / 405 Avg reward: 18.00 Avg turns: 21.71
+Simulation success rate 0.74, Ave reward 41.76, Ave turns 16.08, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 406 / 500, Success rate: 229 / 406 Avg reward: 17.83 Avg turns: 21.70
+Simulation success rate 0.78, Ave reward 47.12, Ave turns 14.96, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 407 / 500, Success rate: 230 / 407 Avg reward: 17.97 Avg turns: 21.69
+Simulation success rate 0.64, Ave reward 29.1, Ave turns 17.4, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 408 / 500, Success rate: 230 / 408 Avg reward: 17.78 Avg turns: 21.74
+Simulation success rate 0.7, Ave reward 37.0, Ave turns 16.0, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 409 / 500, Success rate: 231 / 409 Avg reward: 17.92 Avg turns: 21.71
+Simulation success rate 0.68, Ave reward 34.02, Ave turns 17.16, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 410 / 500, Success rate: 231 / 410 Avg reward: 17.75 Avg turns: 21.71
+Simulation success rate 0.7, Ave reward 37.32, Ave turns 15.36, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 411 / 500, Success rate: 232 / 411 Avg reward: 17.89 Avg turns: 21.70
+Simulation success rate 0.78, Ave reward 46.7, Ave turns 15.8, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 412 / 500, Success rate: 232 / 412 Avg reward: 17.70 Avg turns: 21.75
+Simulation success rate 0.72, Ave reward 37.22, Ave turns 20.36, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 413 / 500, Success rate: 233 / 413 Avg reward: 17.84 Avg turns: 21.72
+Simulation success rate 0.86, Ave reward 55.72, Ave turns 16.96, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 414 / 500, Success rate: 234 / 414 Avg reward: 17.98 Avg turns: 21.69
+Simulation success rate 0.8, Ave reward 49.24, Ave turns 15.52, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 415 / 500, Success rate: 235 / 415 Avg reward: 18.12 Avg turns: 21.66
+Simulation success rate 0.68, Ave reward 33.0, Ave turns 19.2, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 416 / 500, Success rate: 235 / 416 Avg reward: 17.95 Avg turns: 21.68
+Simulation success rate 0.76, Ave reward 43.44, Ave turns 17.52, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 417 / 500, Success rate: 235 / 417 Avg reward: 17.80 Avg turns: 21.65
+Simulation success rate 0.78, Ave reward 46.98, Ave turns 15.24, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 418 / 500, Success rate: 236 / 418 Avg reward: 17.94 Avg turns: 21.63
+Simulation success rate 0.58, Ave reward 22.66, Ave turns 15.88, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 419 / 500, Success rate: 237 / 419 Avg reward: 18.08 Avg turns: 21.60
+Simulation success rate 0.8, Ave reward 49.38, Ave turns 15.24, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 420 / 500, Success rate: 238 / 420 Avg reward: 18.21 Avg turns: 21.57
+Simulation success rate 0.84, Ave reward 54.48, Ave turns 14.64, Best success rate 0.94
+cur bellman err 381.5652, experience replay pool 5000, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0710, training replay pool 5000
+---------------------------------------------------------------------------------------------------- 
+ Progress: 421 / 500, Success rate: 239 / 421 Avg reward: 18.35 Avg turns: 21.55
+Simulation success rate 0.72, Ave reward 38.88, Ave turns 17.04, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 422 / 500, Success rate: 240 / 422 Avg reward: 18.48 Avg turns: 21.53
+Simulation success rate 0.72, Ave reward 39.68, Ave turns 15.44, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 423 / 500, Success rate: 241 / 423 Avg reward: 18.60 Avg turns: 21.54
+Simulation success rate 0.78, Ave reward 46.86, Ave turns 15.48, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 424 / 500, Success rate: 241 / 424 Avg reward: 18.45 Avg turns: 21.52
+Simulation success rate 0.72, Ave reward 39.22, Ave turns 16.36, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 425 / 500, Success rate: 241 / 425 Avg reward: 18.28 Avg turns: 21.53
+Simulation success rate 0.76, Ave reward 43.58, Ave turns 17.24, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 426 / 500, Success rate: 242 / 426 Avg reward: 18.42 Avg turns: 21.51
+Simulation success rate 0.88, Ave reward 58.36, Ave turns 16.48, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 427 / 500, Success rate: 243 / 427 Avg reward: 18.55 Avg turns: 21.48
+Simulation success rate 0.64, Ave reward 29.58, Ave turns 16.44, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 428 / 500, Success rate: 243 / 428 Avg reward: 18.39 Avg turns: 21.47
+Simulation success rate 0.62, Ave reward 25.84, Ave turns 19.12, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 429 / 500, Success rate: 244 / 429 Avg reward: 18.52 Avg turns: 21.46
+Simulation success rate 0.68, Ave reward 33.04, Ave turns 19.12, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 430 / 500, Success rate: 245 / 430 Avg reward: 18.64 Avg turns: 21.46
+Simulation success rate 0.7, Ave reward 36.22, Ave turns 17.56, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 431 / 500, Success rate: 245 / 431 Avg reward: 18.50 Avg turns: 21.43
+Simulation success rate 0.84, Ave reward 52.7, Ave turns 18.2, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 432 / 500, Success rate: 246 / 432 Avg reward: 18.63 Avg turns: 21.40
+Simulation success rate 0.76, Ave reward 44.48, Ave turns 15.44, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 433 / 500, Success rate: 247 / 433 Avg reward: 18.76 Avg turns: 21.38
+Simulation success rate 0.8, Ave reward 49.86, Ave turns 14.28, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 434 / 500, Success rate: 248 / 434 Avg reward: 18.89 Avg turns: 21.35
+Simulation success rate 0.8, Ave reward 48.7, Ave turns 16.6, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 435 / 500, Success rate: 249 / 435 Avg reward: 19.02 Avg turns: 21.35
+Simulation success rate 0.62, Ave reward 26.22, Ave turns 18.36, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 436 / 500, Success rate: 250 / 436 Avg reward: 19.14 Avg turns: 21.33
+Simulation success rate 0.74, Ave reward 41.08, Ave turns 17.44, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 437 / 500, Success rate: 250 / 437 Avg reward: 18.98 Avg turns: 21.34
+Simulation success rate 0.66, Ave reward 30.2, Ave turns 20.0, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 438 / 500, Success rate: 251 / 438 Avg reward: 19.11 Avg turns: 21.32
+Simulation success rate 0.74, Ave reward 39.54, Ave turns 20.52, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 439 / 500, Success rate: 252 / 439 Avg reward: 19.22 Avg turns: 21.32
+Simulation success rate 0.8, Ave reward 46.82, Ave turns 20.36, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 440 / 500, Success rate: 252 / 440 Avg reward: 19.05 Avg turns: 21.36
+Simulation success rate 0.64, Ave reward 27.8, Ave turns 20.0, Best success rate 0.94
+cur bellman err 340.8576, experience replay pool 5000, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0870, training replay pool 5000
+---------------------------------------------------------------------------------------------------- 
+ Progress: 441 / 500, Success rate: 253 / 441 Avg reward: 19.15 Avg turns: 21.39
+Simulation success rate 0.8, Ave reward 47.7, Ave turns 18.6, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 442 / 500, Success rate: 254 / 442 Avg reward: 19.28 Avg turns: 21.37
+Simulation success rate 0.64, Ave reward 29.58, Ave turns 16.44, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 443 / 500, Success rate: 255 / 443 Avg reward: 19.40 Avg turns: 21.35
+Simulation success rate 0.7, Ave reward 36.8, Ave turns 16.4, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 444 / 500, Success rate: 256 / 444 Avg reward: 19.53 Avg turns: 21.32
+Simulation success rate 0.74, Ave reward 39.6, Ave turns 20.4, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 445 / 500, Success rate: 257 / 445 Avg reward: 19.65 Avg turns: 21.30
+Simulation success rate 0.76, Ave reward 41.84, Ave turns 20.72, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 446 / 500, Success rate: 258 / 446 Avg reward: 19.77 Avg turns: 21.30
+Simulation success rate 0.72, Ave reward 38.12, Ave turns 18.56, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 447 / 500, Success rate: 258 / 447 Avg reward: 19.59 Avg turns: 21.34
+Simulation success rate 0.7, Ave reward 38.06, Ave turns 13.88, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 448 / 500, Success rate: 259 / 448 Avg reward: 19.71 Avg turns: 21.33
+Simulation success rate 0.82, Ave reward 52.14, Ave turns 14.52, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 449 / 500, Success rate: 260 / 449 Avg reward: 19.83 Avg turns: 21.31
+Simulation success rate 0.78, Ave reward 47.64, Ave turns 13.92, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 450 / 500, Success rate: 261 / 450 Avg reward: 19.96 Avg turns: 21.28
+Simulation success rate 0.86, Ave reward 56.66, Ave turns 15.08, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 451 / 500, Success rate: 261 / 451 Avg reward: 19.80 Avg turns: 21.29
+Simulation success rate 0.7, Ave reward 37.46, Ave turns 15.08, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 452 / 500, Success rate: 262 / 452 Avg reward: 19.92 Avg turns: 21.27
+Simulation success rate 0.74, Ave reward 41.8, Ave turns 16.0, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 453 / 500, Success rate: 262 / 453 Avg reward: 19.77 Avg turns: 21.26
+Simulation success rate 0.8, Ave reward 48.52, Ave turns 16.96, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 454 / 500, Success rate: 262 / 454 Avg reward: 19.63 Avg turns: 21.24
+Simulation success rate 0.68, Ave reward 34.34, Ave turns 16.52, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 455 / 500, Success rate: 263 / 455 Avg reward: 19.73 Avg turns: 21.26
+Simulation success rate 0.72, Ave reward 40.16, Ave turns 14.48, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 456 / 500, Success rate: 264 / 456 Avg reward: 19.86 Avg turns: 21.24
+Simulation success rate 0.7, Ave reward 35.86, Ave turns 18.28, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 457 / 500, Success rate: 265 / 457 Avg reward: 19.97 Avg turns: 21.23
+Simulation success rate 0.76, Ave reward 44.54, Ave turns 15.32, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 458 / 500, Success rate: 266 / 458 Avg reward: 20.09 Avg turns: 21.21
+Simulation success rate 0.72, Ave reward 38.8, Ave turns 17.2, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 459 / 500, Success rate: 267 / 459 Avg reward: 20.19 Avg turns: 21.23
+Simulation success rate 0.6, Ave reward 19.58, Ave turns 26.84, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 460 / 500, Success rate: 267 / 460 Avg reward: 20.02 Avg turns: 21.27
+Simulation success rate 0.74, Ave reward 41.28, Ave turns 17.04, Best success rate 0.94
+cur bellman err 396.1038, experience replay pool 5000, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0828, training replay pool 5000
+---------------------------------------------------------------------------------------------------- 
+ Progress: 461 / 500, Success rate: 268 / 461 Avg reward: 20.13 Avg turns: 21.26
+Simulation success rate 0.62, Ave reward 25.48, Ave turns 19.84, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 462 / 500, Success rate: 269 / 462 Avg reward: 20.25 Avg turns: 21.25
+Simulation success rate 0.64, Ave reward 28.56, Ave turns 18.48, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 463 / 500, Success rate: 270 / 463 Avg reward: 20.36 Avg turns: 21.24
+Simulation success rate 0.7, Ave reward 35.18, Ave turns 19.64, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 464 / 500, Success rate: 271 / 464 Avg reward: 20.47 Avg turns: 21.22
+Simulation success rate 0.72, Ave reward 39.16, Ave turns 16.48, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 465 / 500, Success rate: 272 / 465 Avg reward: 20.59 Avg turns: 21.21
+Simulation success rate 0.76, Ave reward 42.66, Ave turns 19.08, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 466 / 500, Success rate: 273 / 466 Avg reward: 20.71 Avg turns: 21.19
+Simulation success rate 0.64, Ave reward 27.86, Ave turns 19.88, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 467 / 500, Success rate: 274 / 467 Avg reward: 20.82 Avg turns: 21.16
+Simulation success rate 0.72, Ave reward 38.16, Ave turns 18.48, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 468 / 500, Success rate: 274 / 468 Avg reward: 20.69 Avg turns: 21.14
+Simulation success rate 0.6, Ave reward 22.56, Ave turns 20.88, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 469 / 500, Success rate: 275 / 469 Avg reward: 20.80 Avg turns: 21.12
+Simulation success rate 0.72, Ave reward 38.82, Ave turns 17.16, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 470 / 500, Success rate: 276 / 470 Avg reward: 20.92 Avg turns: 21.09
+Simulation success rate 0.74, Ave reward 41.8, Ave turns 16.0, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 471 / 500, Success rate: 277 / 471 Avg reward: 21.03 Avg turns: 21.08
+Simulation success rate 0.8, Ave reward 48.88, Ave turns 16.24, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 472 / 500, Success rate: 278 / 472 Avg reward: 21.15 Avg turns: 21.06
+Simulation success rate 0.82, Ave reward 51.26, Ave turns 16.28, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 473 / 500, Success rate: 278 / 473 Avg reward: 21.00 Avg turns: 21.07
+Simulation success rate 0.88, Ave reward 59.34, Ave turns 14.52, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 474 / 500, Success rate: 279 / 474 Avg reward: 21.11 Avg turns: 21.05
+Simulation success rate 0.8, Ave reward 49.12, Ave turns 15.76, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 475 / 500, Success rate: 279 / 475 Avg reward: 20.94 Avg turns: 21.09
+Simulation success rate 0.64, Ave reward 31.0, Ave turns 13.6, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 476 / 500, Success rate: 279 / 476 Avg reward: 20.79 Avg turns: 21.09
+Simulation success rate 0.6, Ave reward 26.18, Ave turns 13.64, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 477 / 500, Success rate: 280 / 477 Avg reward: 20.91 Avg turns: 21.07
+Simulation success rate 0.82, Ave reward 51.36, Ave turns 16.08, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 478 / 500, Success rate: 280 / 478 Avg reward: 20.76 Avg turns: 21.08
+Simulation success rate 0.5, Ave reward 11.74, Ave turns 18.52, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 479 / 500, Success rate: 281 / 479 Avg reward: 20.86 Avg turns: 21.07
+Simulation success rate 0.7, Ave reward 36.24, Ave turns 17.52, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 480 / 500, Success rate: 282 / 480 Avg reward: 20.97 Avg turns: 21.06
+Simulation success rate 0.82, Ave reward 52.42, Ave turns 13.96, Best success rate 0.94
+cur bellman err 430.1134, experience replay pool 5000, model replay pool 5000, cur bellman err for planning 0.0000
+Total cost for user modeling: 0.0966, training replay pool 5000
+---------------------------------------------------------------------------------------------------- 
+ Progress: 481 / 500, Success rate: 283 / 481 Avg reward: 21.07 Avg turns: 21.07
+Simulation success rate 0.86, Ave reward 57.54, Ave turns 13.32, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 482 / 500, Success rate: 283 / 482 Avg reward: 20.93 Avg turns: 21.05
+Simulation success rate 0.68, Ave reward 35.54, Ave turns 14.12, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 483 / 500, Success rate: 283 / 483 Avg reward: 20.77 Avg turns: 21.09
+Simulation success rate 0.84, Ave reward 54.12, Ave turns 15.36, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 484 / 500, Success rate: 284 / 484 Avg reward: 20.87 Avg turns: 21.08
+Simulation success rate 0.66, Ave reward 31.94, Ave turns 16.52, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 485 / 500, Success rate: 285 / 485 Avg reward: 20.98 Avg turns: 21.06
+Simulation success rate 0.58, Ave reward 21.96, Ave turns 17.28, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 486 / 500, Success rate: 285 / 486 Avg reward: 20.85 Avg turns: 21.05
+Simulation success rate 0.66, Ave reward 31.98, Ave turns 16.44, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 487 / 500, Success rate: 286 / 487 Avg reward: 20.96 Avg turns: 21.03
+Simulation success rate 0.74, Ave reward 42.52, Ave turns 14.56, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 488 / 500, Success rate: 287 / 488 Avg reward: 21.07 Avg turns: 21.01
+Simulation success rate 0.82, Ave reward 52.16, Ave turns 14.48, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 489 / 500, Success rate: 288 / 489 Avg reward: 21.18 Avg turns: 20.99
+Simulation success rate 0.74, Ave reward 41.34, Ave turns 16.92, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 490 / 500, Success rate: 289 / 490 Avg reward: 21.29 Avg turns: 20.97
+Simulation success rate 0.76, Ave reward 43.86, Ave turns 16.68, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 491 / 500, Success rate: 290 / 491 Avg reward: 21.40 Avg turns: 20.95
+Simulation success rate 0.78, Ave reward 45.5, Ave turns 18.2, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 492 / 500, Success rate: 290 / 492 Avg reward: 21.26 Avg turns: 20.93
+Simulation success rate 0.8, Ave reward 47.56, Ave turns 18.88, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 493 / 500, Success rate: 290 / 493 Avg reward: 21.13 Avg turns: 20.92
+Simulation success rate 0.68, Ave reward 33.76, Ave turns 17.68, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 494 / 500, Success rate: 291 / 494 Avg reward: 21.24 Avg turns: 20.90
+Simulation success rate 0.82, Ave reward 51.26, Ave turns 16.28, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 495 / 500, Success rate: 292 / 495 Avg reward: 21.35 Avg turns: 20.88
+Simulation success rate 0.74, Ave reward 41.6, Ave turns 16.4, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 496 / 500, Success rate: 292 / 496 Avg reward: 21.22 Avg turns: 20.86
+Simulation success rate 0.66, Ave reward 31.32, Ave turns 17.76, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 497 / 500, Success rate: 293 / 497 Avg reward: 21.31 Avg turns: 20.86
+Simulation success rate 0.78, Ave reward 46.44, Ave turns 16.32, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 498 / 500, Success rate: 294 / 498 Avg reward: 21.42 Avg turns: 20.84
+Simulation success rate 0.64, Ave reward 29.66, Ave turns 16.28, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 499 / 500, Success rate: 295 / 499 Avg reward: 21.52 Avg turns: 20.85
+Simulation success rate 0.72, Ave reward 39.08, Ave turns 16.64, Best success rate 0.94
+---------------------------------------------------------------------------------------------------- 
+ Progress: 500 / 500, Success rate: 296 / 500 Avg reward: 21.62 Avg turns: 20.85
+Simulation success rate 0.68, Ave reward 34.38, Ave turns 16.44, Best success rate 0.94
+____________________________________________________________________________________________________ 
+ Success rate: 296 / 500 (0.59), Avg reward: 21.62, Avg turns: 20.85
+saved model in ./deep_dialog/checkpoints/runk40/agt_6_338_500_0.59200.pkl
+saved model in ./deep_dialog/checkpoints/runk40/agt_6_performance_records.json

@@ -22,6 +22,7 @@ from deep_dialog.nlg import nlg
 
 from deep_dialog.data.win2unix import win2unix
 
+torch.set_num_threads(24)
 
 seed = 5
 numpy.random.seed(seed)
