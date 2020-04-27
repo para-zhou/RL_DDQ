@@ -297,7 +297,7 @@ simulation_epoch_size = params['simulation_epoch_size']
 batch_size = params['batch_size']  # default = 16
 warm_start = params['warm_start']
 warm_start_epochs = params['warm_start_epochs']
-planning_steps = params['planning_steps']
+planning_steps = params['planning_steps'] - 1
 
 agent.planning_steps = planning_steps
 
