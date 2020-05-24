@@ -520,7 +520,7 @@ def run_episodes(count, status):
             # agent.train(batch_size, 1)
             agent.reset_dqn_target()
 
-            if params['train_world_model']:
+            if params['train_world_model'] and params['planning_steps']:
                 world_model.train(batch_size, 1, episode, print_interval)
                 # world_model.train(batch_size, 1)
 
@@ -530,7 +530,7 @@ def run_episodes(count, status):
                            best_res['epoch'], episode)
                 save_performance_records(params['write_model_dir'], agt, performance_records)
 
-            if True: #episode % print_interval == 0:
+            if episode % print_interval == 0:
                 print("-"*100, "\n", "Progress: %s / %s, Success rate: %s / %s Avg reward: %.2f Avg turns: %.2f" % (
                     episode + 1, count, successes, episode + 1, float(cumulative_reward) / (episode + 1),
                     float(cumulative_turns) / (episode + 1)))
